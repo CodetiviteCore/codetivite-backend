@@ -50,7 +50,7 @@ class SetupServer {
         message: "Welcome to Codetivite",
       })
     );
-    this.app.use("/v1.0/api", routes);
+    this.app.use("/v1.0/api", routes.userroutes);
     this.app.all("*", (req, res) => res.send({ message: "route not found" }));
   }
 
