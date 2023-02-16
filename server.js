@@ -22,8 +22,6 @@ app.get("/", (_, res) =>
 app.use("/v1.0/api", userroutes);
 app.all("*", (req, res) => res.send({ message: "route not found" }));  
 
-app.post("/mailList", addToMailList);
-
 app.listen(5001, () => {
   console.log("Listening on 5001");
 });
