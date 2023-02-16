@@ -1,5 +1,5 @@
 # Codetivite
 
 API for Core Team
-Live Base URl : https://codetiviteapi.onrender.com
+Live Base URl : https://codetivite-api.onrender.com
 
