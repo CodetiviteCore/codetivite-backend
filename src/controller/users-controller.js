@@ -1,12 +1,13 @@
 const createHttpError = require("http-errors");
-const userModel = require("../models/userModel");
+const userModel = require("../models/user-model");
+const { OK, INTERNAL_SERVER_ERROR, BAD_REQUEST } = require("../utility/status-codes");
 
 exports.addToMailList = async (request, response, next) => {
   try {
     const { firstName, email } = request.body;
 
     if (!firstName || !email)
-      throw createHttpError(400, "Invalid Request Body");
+      throw createHttpError(BAD_REQUEST, "Invalid Request Body");
 
     let currentUser = await userModel.findById(email);
 
@@ -19,11 +20,11 @@ exports.addToMailList = async (request, response, next) => {
       currentUser = await currentUser.save();
     }
 
-    response.status(200).json({
+    response.status(OK).json({
       firstname: currentUser.firstName,
       email: currentUser._id,
     });
   } catch (error) {
-    next(createHttpError(500, error));
+    next(createHttpError(INTERNAL_SERVER_ERROR, error));
   }
 };
