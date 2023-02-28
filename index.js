@@ -2,8 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const path = require("path");
 const { connectDatabase } = require("./src/config/database");
-const { userroutes } = require("./src/routes/v1/userroutes");
-const { OK, NOT_FOUND } = require("./src/utility/statuscodes");
+const { userroutes } = require("./src/routes/v1/users-routes");
+const { OK, NOT_FOUND } = require("./src/utility/status-codes");
 require("dotenv")
 .config({ path: `.env.${process.env.NODE_ENV || "development"}.local` });
 
