@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 require('dotenv').config();
 
-exports.database = () => {
+exports.connectDatabase = () => {
   mongoose
     .set("strictQuery", false)
     .connect(process.env.MONGODB_URI)
