@@ -1,52 +1,37 @@
-const { env } = require("./src/config");
-const SetupServer = require("./src//utils/server");
+const express = require("express");
+const cors = require("cors");
+const path = require("path");
+const { connectDatabase } = require("./src/config/database");
+const { userroutes } = require("./src/routes/v1/users-routes");
+const { OK, NOT_FOUND } = require("./src/utility/status-codes");
+require("dotenv")
+.config({ path: `.env.${process.env.NODE_ENV || "development"}.local` });
 
-const { PORT } = env;
 
-const ExitStatus = {
-  Failure: 1,
-  Success: 0,
-};
+const app = express();
+connectDatabase();
 
-// If there is an unhandled exception,
-// lets throw the error and let the uncaughtException handle below handle it
+app.use(express.json());
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
-process.on("unhandledRejection", (reason, promise) => {
-  console.error(
-    `App exiting due to an unhandled promise: ${promise} and reason: ${reason}`
+app.get("/", (_, res) =>
+  res.status(OK).sendFile(path.join(__dirname, "/index.html"))
+);
+
+//Sends an html - that welcoms the user and has a way to link to documentation
+app.use("/api/v1.0/user", userroutes);
+app.all("*", (_, res) => res.status(NOT_FOUND).send({ message: "route not found" }));
+
+app.listen(process.env.PORT, () => {
+  console.log(
+    `Listening on ${process.env.PORT}\n${
+      !process.env.NODE_ENV || process.env.NODE_ENV === "development"
+        ? "Visit http://localhost:5121/"
+        : ""
+    }`
   );
-  throw reason;
 });
-
-//Catch any uncaught exceptions and exit the process
-process.on("uncaughtException", (error) => {
-  console.error(`App exiting due to an uncaught exception: ${error}`);
-  process.exit(ExitStatus.Failure);
-});
-
-//Try to setup, initialize and start the server
-(async () => {
-  try {
-    const server = new SetupServer(PORT);
-    await server.init();
-    await server.start();
-
-    const exitSignals = ["SIGINT", "SIGTERM", "SIGQUIT"];
-
-    for (const exitSignal of exitSignals) {
-      process.on(exitSignal, async () => {
-        try {
-          await server.close();
-          console.info(`App exited with success`);
-          process.exit(ExitStatus.Success);
-        } catch (error) {
-          console.error(`App exited with error: ${error}`);
-          process.exit(ExitStatus.Failure);
-        }
-      });
-    }
-  } catch (error) {
-    console.error(`App exited with error: ${error}`);
-    process.exit(ExitStatus.Failure);
-  }
-})();

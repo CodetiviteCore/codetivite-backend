@@ -2,10 +2,10 @@
   "name": "team-codetivite",
   "version": "1.0.0",
   "description": "Team Codetivite API",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "nodemon test",
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon index.js"
   },
   "repository": {
     "type": "git",

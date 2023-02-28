@@ -1,0 +1,7 @@
+exports.BAD_REQUEST = 400;
+exports.OK = 200;
+exports.NOT_FOUND = 404;
+exports.INTERNAL_SERVER_ERROR = 500;
+exports.SERVICE_UNAVAILABLE = 503;
+exports.PERMANENT_REDIRECT = 301;
+exports.TEMPORARY_REDIRECT = 301;
