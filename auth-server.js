@@ -1,11 +1,16 @@
 const express = require("express");
 const app = express();
 const { google } = require("googleapis");
+const { OAuth2Client } = require("google-auth-library");
 const client_secret = require("./client_secret.json");
 let token;
+let id_token;
+let verified;
+let payLoad;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.set("view engine", "ejs");
 
 const oauth2Client = new google.auth.OAuth2(
   client_secret.web.client_id,
@@ -20,9 +25,25 @@ const scopes = [
 
 const authorizationUrl = oauth2Client.generateAuthUrl({
   access_type: "offline",
-  scope: "https://www.googleapis.com/auth/userinfo.profile",
+  scope: scopes,
   include_granted_scopes: true,
 });
+
+///Configuraciones de Google
+const client = new OAuth2Client(client_secret.web.client_id);
+async function verify(token) {
+  const ticket = await client.verifyIdToken({
+    idToken: token,
+    audience: client_secret.web.client_id, // Specify the CLIENT_ID of the app that accesses the backend
+    // Or, if multiple clients access the backend:
+    //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
+  });
+  const payload = ticket.getPayload();
+  payLoad = JSON.stringify(payload);
+  const userId = payload.sub;
+
+  console.log(JSON.stringify(payload));
+}
 
 app.get("/test", async (req, res) => {
   // This will provide an object with the access_token and refresh_token.
@@ -41,10 +62,15 @@ app.get("/login", (_, res) => {
 app.get("/", async (req, res) => {
   const code = req.query.code;
   const { tokens } = await oauth2Client.getToken(code);
-  token = tokens.access_token
+
+  token = tokens.access_token;
+  id_token = tokens.id_token;
+
   oauth2Client.setCredentials(tokens);
-  console.log(tokens);
-  res.send("Successfully authenticated access_token is " + token);
+
+  verify(id_token).catch(console.error);
+
+  res.render("index", { tokens, token, id_token, verified, payLoad });
 });
 
 app.listen(5000, () => {
