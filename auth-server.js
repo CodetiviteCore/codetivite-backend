@@ -3,14 +3,12 @@ const app = express();
 const { google } = require("googleapis");
 const { OAuth2Client } = require("google-auth-library");
 const client_secret = require("./client_secret.json");
-let token;
+
 let id_token;
-let verified;
 let payLoad;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.set("view engine", "ejs");
 
 const oauth2Client = new google.auth.OAuth2(
   client_secret.web.client_id,
@@ -40,22 +38,13 @@ async function verify(token) {
   });
   const payload = ticket.getPayload();
   payLoad = JSON.stringify(payload);
+
   const userId = payload.sub;
 
   console.log(JSON.stringify(payload));
 }
 
-app.get("/test", async (req, res) => {
-  // This will provide an object with the access_token and refresh_token.
-  // Save these somewhere safe so they can be used at a later time.
-
-  res.send("This route is just for testing");
-});
-
 app.get("/login", (_, res) => {
-  // Example on redirecting user to Google's OAuth 2.0 server.
-  // await res.writeHead(301, { Location: authorizationUrl });
-  // await res.send(authorizationUrl);
   res.redirect(authorizationUrl);
 });
 
@@ -70,7 +59,7 @@ app.get("/", async (req, res) => {
 
   verify(id_token).catch(console.error);
 
-  res.render("index", { tokens, token, id_token, verified, payLoad });
+  res.send("Successfully authenticated");
 });
 
 app.listen(5000, () => {
