@@ -14,14 +14,16 @@ app.use(
   })
 );
 
-app.get("/", (_, res) =>
-  res.status(200).send({
-    message: "Welcome to Codetivite API",
-  })
-);
-app.use("/v1.0/api", userroutes);
+// app.get("/", (_, res) =>
+//   res.status(200).send({
+//     message: "Welcome to Codetivite API",
+//   })
+// );
+
+// app.use("/v1.0/api", userroutes);
+app.use("/", userroutes);
 app.all("*", (req, res) => res.send({ message: "route not found" }));  
 
-app.listen(5001, () => {
-  console.log("Listening on 5001");
+app.listen(5000, () => {
+  console.log("Listening on 5000");
 });
