@@ -1,3 +1,6 @@
 node_modules
 .env
 .env.development.local
+client_secret.json
+client_secret.json
+
