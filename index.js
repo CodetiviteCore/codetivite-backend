@@ -3,7 +3,7 @@ const cors = require("cors");
 const path = require("path");
 const { connectDatabase } = require("./src/config/database");
 const { userroutes } = require("./src/routes/v1/users-routes");
-const { OK, NOT_FOUND } = require("./src/utility/status-codes");
+const { OK, NOT_FOUND, UNAUTHORIZED } = require("./src/utility/status-codes");
 const { google } = require("googleapis");
 const { OAuth2Client } = require("google-auth-library");
 const client_secret = require("./client_secret.json");
@@ -70,7 +70,6 @@ app.get("/dashboard", async (_, res) => {
   res.status(OK).sendFile(path.join(__dirname, "/index.html"));
 });
 
-
 app.get("/auth", async (req, res) => {
   const code = req.query.code;
   const { tokens } = await oauth2Client.getToken(code);
@@ -94,21 +93,23 @@ app.get("/auth", async (req, res) => {
     //Send mail
     return getTransport().sendMail(mailRequest, (error) => {
       if (error) {
-        res.status(404).send("Can't send email.");
+        res.status(NOT_FOUND).send("Can't send email.");
       } else {
-        res.status(200);
+        res.status(OK);
         res.send({
           message: `Link sent to ${email}`,
         });
       }
     });   
   }
+
+  res.redirect(OK, "/dashboard");
 });
 
 app.get("/verify-token", (req, res) => {
   const { token } = req.query;
   if (!token) {
-    res.status(401).send("Invalid user token");
+    res.status(UNAUTHORIZED).send("Invalid user token");
     return;
   }
 
@@ -116,7 +117,7 @@ app.get("/verify-token", (req, res) => {
   try {
     decodedToken = jwt.verify(token, process.env.JWT_SECRET_KEY);
   } catch {
-    res.status(401).send("Invalid authentication credentials");
+    res.status(UNAUTHORIZED).send("Invalid authentication credentials");
     return;
   }
 
@@ -125,17 +126,16 @@ app.get("/verify-token", (req, res) => {
     !decodedToken.hasOwnProperty("name") ||
     !decodedToken.hasOwnProperty("expirationDate")
   ) {
-    res.status(401).send("Invalid authentication credentials.");
+    res.status(UNAUTHORIZED).send("Invalid authentication credentials.");
     return;
   }
 
   const { expirationDate } = decodedToken;
   if (expirationDate < new Date()) {
-    res.status(401).send("Token has expired.");
+    res.status(UNAUTHORIZED).send("Token has expired.");
     return;
   }  
-  res.redirect(200, "/dashboard");
-  res.status(200).send("verfication successful");
+  res.redirect(OK, "/dashboard");  
 });
 
 app.get("/login", (_, res) => {
