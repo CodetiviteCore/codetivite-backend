@@ -62,11 +62,16 @@ async function verify(token) {
   return ticket.getPayload();  
 }
 
+app.get("/", async (_, res) => {
+  res.status(OK).sendFile(path.join(__dirname, "/index.html"));
+});
+
 app.get("/dashboard", async (_, res) => {
   res.status(OK).sendFile(path.join(__dirname, "/index.html"));
 });
 
-app.get("/", async (req, res) => {
+
+app.get("/auth", async (req, res) => {
   const code = req.query.code;
   const { tokens } = await oauth2Client.getToken(code);
 
