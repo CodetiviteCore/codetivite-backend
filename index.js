@@ -7,6 +7,13 @@ const { OK, NOT_FOUND } = require("./src/utility/status-codes");
 const { google } = require("googleapis");
 const { OAuth2Client } = require("google-auth-library");
 const client_secret = require("./client_secret.json");
+const userModel = require("./src/models/user-model");
+const {
+  generateToken,
+  getMailOptions,
+  getTransport,
+} = require("./src/controller/auth-controller");
+
 require("dotenv").config({
   path: `.env.${process.env.NODE_ENV || "development"}.local`,
 });
@@ -23,7 +30,6 @@ app.use(
 );
 
 let id_token;
-let payLoad;
 let token;
 
 const oauth2Client = new google.auth.OAuth2(
@@ -52,13 +58,13 @@ async function verify(token) {
     // Or, if multiple clients access the backend:
     //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
   });
-  const payload = ticket.getPayload();
-  payLoad = JSON.stringify(payload);
 
-  const userId = payload.sub;
-
-  console.log(JSON.stringify(payload));
+  return ticket.getPayload();  
 }
+
+// app.get("/", async (_, res) => {
+//   res.status(OK).sendFile(path.join(__dirname, "/index.html"));
+// });
 
 app.get("/", async (req, res) => {
   const code = req.query.code;
@@ -69,11 +75,29 @@ app.get("/", async (req, res) => {
 
   oauth2Client.setCredentials(tokens);
 
-  verify(id_token).catch(console.error);
-  console.log(id_token);
+  const payload = await verify(id_token).catch(console.error);
 
-  res.status(OK).sendFile(path.join(__dirname, "/index.html"));
-  // res.send("Success");
+  let currentUser = await userModel.findById(payload.email);  
+
+  if (!currentUser) {
+    const token = generateToken(payload.email, payload.profile);
+    const link = `http://localhost:5121/verify?token=${token}`;
+
+    //Create mailrequest
+    let mailRequest = getMailOptions(email, link);
+
+    //Send mail
+    return getTransport().sendMail(mailRequest, (error) => {
+      if (error) {
+        res.status(404).send("Can't send email.");
+      } else {
+        res.status(200);
+        res.send({
+          message: `Link sent to ${email}`,
+        });
+      }
+    });   
+  }
 });
 
 app.get("/login", (_, res) => {
