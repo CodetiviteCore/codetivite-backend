@@ -62,9 +62,9 @@ async function verify(token) {
   return ticket.getPayload();  
 }
 
-// app.get("/", async (_, res) => {
-//   res.status(OK).sendFile(path.join(__dirname, "/index.html"));
-// });
+app.get("/dashboard", async (_, res) => {
+  res.status(OK).sendFile(path.join(__dirname, "/index.html"));
+});
 
 app.get("/", async (req, res) => {
   const code = req.query.code;
@@ -81,7 +81,7 @@ app.get("/", async (req, res) => {
 
   if (!currentUser) {
     const token = generateToken(payload.email, payload.profile);
-    const link = `http://localhost:5121/verify?token=${token}`;
+    const link = `http://localhost:5121/verify-token?token=${token}`;
 
     //Create mailrequest
     let mailRequest = getMailOptions(email, link);
@@ -98,6 +98,39 @@ app.get("/", async (req, res) => {
       }
     });   
   }
+});
+
+app.get("/verify-token", (req, res) => {
+  const { token } = req.query;
+  if (!token) {
+    res.status(401).send("Invalid user token");
+    return;
+  }
+
+  let decodedToken;
+  try {
+    decodedToken = jwt.verify(token, process.env.JWT_SECRET_KEY);
+  } catch {
+    res.status(401).send("Invalid authentication credentials");
+    return;
+  }
+
+  if (
+    !decodedToken.hasOwnProperty("email") ||
+    !decodedToken.hasOwnProperty("name") ||
+    !decodedToken.hasOwnProperty("expirationDate")
+  ) {
+    res.status(401).send("Invalid authentication credentials.");
+    return;
+  }
+
+  const { expirationDate } = decodedToken;
+  if (expirationDate < new Date()) {
+    res.status(401).send("Token has expired.");
+    return;
+  }  
+  res.redirect(200, "/dashboard");
+  res.status(200).send("verfication successful");
 });
 
 app.get("/login", (_, res) => {
