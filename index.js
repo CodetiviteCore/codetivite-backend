@@ -23,7 +23,7 @@ app.get("/", (_, res) =>
 );
 
 //Sends an html - that welcoms the user and has a way to link to documentation
-app.use("/api/v1.0/user", userroutes);
+app.use("/api/v1.0/users", userroutes);
 app.all("*", (_, res) => res.status(NOT_FOUND).send({ message: "route not found" }));
 
 app.listen(process.env.PORT, () => {
