@@ -59,7 +59,7 @@ async function verify(token) {
     //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
   });
 
-  return ticket.getPayload();  
+  return ticket.getPayload();
 }
 
 app.get("/", async (_, res) => {
@@ -81,7 +81,7 @@ app.get("/auth", async (req, res) => {
 
   const payload = await verify(id_token).catch(console.error);
 
-  let currentUser = await userModel.findById(payload.email);  
+  let currentUser = await userModel.findById(payload.email);
 
   if (!currentUser) {
     const token = generateToken(payload.email, payload.profile);
@@ -100,13 +100,13 @@ app.get("/auth", async (req, res) => {
           message: `Link sent to ${email}`,
         });
       }
-    });   
+    });
   }
 
   res.redirect(OK, "/dashboard");
 });
 
-app.get("/verify-token", (req, res) => {
+app.get("/verify-token", async (req, res) => {
   const { token } = req.query;
   if (!token) {
     res.status(UNAUTHORIZED).send("Invalid user token");
@@ -130,12 +130,24 @@ app.get("/verify-token", (req, res) => {
     return;
   }
 
-  const { expirationDate } = decodedToken;
+  const { email, name, expirationDate } = decodedToken;
   if (expirationDate < new Date()) {
     res.status(UNAUTHORIZED).send("Token has expired.");
     return;
-  }  
-  res.redirect(OK, "/dashboard");  
+  } 
+  
+  let currentUser = await userModel.findById(email);
+
+  if (!currentUser) {
+    currentUser = new userModel({
+      _id: email,
+      firstName: name,
+      userName: email,
+    });
+    currentUser = await currentUser.save();
+  }
+  
+  res.redirect(OK, "/dashboard");
 });
 
 app.get("/login", (_, res) => {
