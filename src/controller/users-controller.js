@@ -11,7 +11,7 @@ exports.addToMailList = async (request, response, next) => {
 
     let currentUser = await userModel.findById(email);
 
-    if (!currentUser) {
+    if (!currentUser) { 
       currentUser = new userModel({
         _id: email,
         firstName,
