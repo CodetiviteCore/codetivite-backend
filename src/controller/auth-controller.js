@@ -17,19 +17,20 @@ exports.generateToken = (email, name) => {
   return jwt.sign({ email, name, expirationDate }, process.env.JWT_SECRET_KEY);
 };
 
-exports.getMailOptions = (email, link) => {
+exports.getMailOptions = (email, firstname, link) => {
   let body = `
-  <h2>Hey ${email}! Welcome to Codetivite</h2>
-  <p>Click this to verify your account: </p>
+  <h3>Hey ${firstname}!</h3>
+  <p>Welcome to Codetivite! We are super pumped to have you</p>
+  <p>Click this to continue to the contivite platform:</p>
   <p>${link}</p>
   <p>Please note that for added security this link becomes invalid after 45 minutes</p>
-  <p>If you did not make this request, simply ignore this mail</p><br />
-  <p>Stay Jiggy</p>
-  <p>Codetivite Team</p>`;
+  <br />
+  <p>Stay Jiggy!</p>
+  <p>The Codetivite Team!</p>`;
 
   return {
     body,
-    subject: "Welocme ToCodetivite",
+    subject: "Welcome To Codetivite",
     to: email,
     html: body,
     from: process.env.EMAIL_ADDRESS,
