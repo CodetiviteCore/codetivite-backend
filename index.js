@@ -30,9 +30,6 @@ app.use(
   })
 );
 
-let id_token;
-let token;
-
 const oauth2Client = new google.auth.OAuth2(
   client_secret.web.client_id,
   client_secret.web.client_secret,
@@ -54,7 +51,7 @@ const client = new OAuth2Client(client_secret.web.client_id);
 async function verify(token) {
   const ticket = await client.verifyIdToken({
     idToken: token,
-    audience: client_secret.web.client_id
+    audience: client_secret.web.client_id,
   });
 
   return ticket.getPayload();
@@ -72,8 +69,8 @@ app.get("/auth", async (req, res) => {
   const code = req.query.code;
   const { tokens } = await oauth2Client.getToken(code);
 
-  token = tokens.access_token;
-  id_token = tokens.id_token;
+  const token = tokens.access_token;
+  const id_token = tokens.id_token;
 
   oauth2Client.setCredentials(tokens);
 
@@ -81,7 +78,7 @@ app.get("/auth", async (req, res) => {
 
   let currentUser = await userModel.findById(payload.email);
 
-  if (!currentUser) {
+  if (!currentUser || !currentUser.isActive) {
     let name = payload.given_name;
     const token = generateToken(payload.email, name);
     const link = `http://localhost:5121/verify-token?token=${token}`;
@@ -113,12 +110,10 @@ app.get("/verify-token", async (req, res) => {
   let decodedToken;
   try {
     decodedToken = jwt.verify(token, process.env.JWT_SECRET_KEY);
-  } catch(e) {
-console.log(e.message);
+  } catch (e) {    
     res.status(UNAUTHORIZED).send("Invalid authentication credentials 1");
     return;
-  }
-console.log(decodedToken)
+  }  
   if (
     !decodedToken.hasOwnProperty("email") ||
     !decodedToken.hasOwnProperty("name") ||
@@ -132,8 +127,8 @@ console.log(decodedToken)
   if (expirationDate < new Date()) {
     res.status(UNAUTHORIZED).send("Token has expired.");
     return;
-  } 
-  
+  }
+
   let currentUser = await userModel.findById(email);
 
   if (!currentUser) {
@@ -141,11 +136,15 @@ console.log(decodedToken)
       _id: email,
       firstName: name,
       userName: email,
+      isActive: true
     });
     currentUser = await currentUser.save();
   }
-  
-  res.redirect(OK, "/dashboard");
+  else if(!currentUser.isActive){
+    await userModel.updateOne({_id : email}, {isActive : true});
+  }
+
+  return res.redirect(OK, "/dashboard");
 });
 
 app.get("/login", (_, res) => {
