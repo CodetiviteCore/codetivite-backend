@@ -1,9 +1,10 @@
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
+const jwt = require("jsonwebtoken");
 const { connectDatabase } = require("./src/config/database");
 const { userroutes } = require("./src/routes/v1/users-routes");
-const { OK, NOT_FOUND, UNAUTHORIZED } = require("./src/utility/status-codes");
+const { OK, NOT_FOUND, UNAUTHORIZED, INTERNAL_SERVER_ERROR } = require("./src/utility/status-codes");
 const { google } = require("googleapis");
 const { OAuth2Client } = require("google-auth-library");
 const client_secret = require("./client_secret.json");
@@ -84,11 +85,12 @@ app.get("/auth", async (req, res) => {
   let currentUser = await userModel.findById(payload.email);
 
   if (!currentUser) {
-    const token = generateToken(payload.email, payload.profile);
+    let name = payload.given_name;
+    const token = generateToken(payload.email, name);
     const link = `http://localhost:5121/verify-token?token=${token}`;
 
     //Create mailrequest
-    let mailRequest = getMailOptions(email, link);
+    let mailRequest = getMailOptions(payload.email, payload.given_name, link);
 
     //Send mail
     return getTransport().sendMail(mailRequest, (error) => {
@@ -116,17 +118,18 @@ app.get("/verify-token", async (req, res) => {
   let decodedToken;
   try {
     decodedToken = jwt.verify(token, process.env.JWT_SECRET_KEY);
-  } catch {
-    res.status(UNAUTHORIZED).send("Invalid authentication credentials");
+  } catch(e) {
+console.log(e.message);
+    res.status(UNAUTHORIZED).send("Invalid authentication credentials 1");
     return;
   }
-
+console.log(decodedToken)
   if (
     !decodedToken.hasOwnProperty("email") ||
     !decodedToken.hasOwnProperty("name") ||
     !decodedToken.hasOwnProperty("expirationDate")
   ) {
-    res.status(UNAUTHORIZED).send("Invalid authentication credentials.");
+    res.status(UNAUTHORIZED).send("Invalid authentication credentials. 2");
     return;
   }
 
