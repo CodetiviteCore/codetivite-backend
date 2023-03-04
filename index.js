@@ -4,7 +4,7 @@ const path = require("path");
 const jwt = require("jsonwebtoken");
 const { connectDatabase } = require("./src/config/database");
 const { userroutes } = require("./src/routes/v1/users-routes");
-const { OK, NOT_FOUND, UNAUTHORIZED, INTERNAL_SERVER_ERROR } = require("./src/utility/status-codes");
+const { OK, NOT_FOUND, UNAUTHORIZED } = require("./src/utility/status-codes");
 const { google } = require("googleapis");
 const { OAuth2Client } = require("google-auth-library");
 const client_secret = require("./client_secret.json");
@@ -50,14 +50,11 @@ const authorizationUrl = oauth2Client.generateAuthUrl({
   include_granted_scopes: true,
 });
 
-///Configuraciones de Google
 const client = new OAuth2Client(client_secret.web.client_id);
 async function verify(token) {
   const ticket = await client.verifyIdToken({
     idToken: token,
-    audience: client_secret.web.client_id, // Specify the CLIENT_ID of the app that accesses the backend
-    // Or, if multiple clients access the backend:
-    //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
+    audience: client_secret.web.client_id
   });
 
   return ticket.getPayload();
@@ -89,10 +86,8 @@ app.get("/auth", async (req, res) => {
     const token = generateToken(payload.email, name);
     const link = `http://localhost:5121/verify-token?token=${token}`;
 
-    //Create mailrequest
     let mailRequest = getMailOptions(payload.email, payload.given_name, link);
 
-    //Send mail
     return getTransport().sendMail(mailRequest, (error) => {
       if (error) {
         res.status(NOT_FOUND).send("Can't send email.");
@@ -157,7 +152,6 @@ app.get("/login", (_, res) => {
   res.redirect(authorizationUrl);
 });
 
-//Sends an html - that welcoms the user and has a way to link to documentation
 app.use("/api/v1.0/user", userroutes);
 app.all("*", (_, res) =>
   res.status(NOT_FOUND).send({ message: "route not found" })
