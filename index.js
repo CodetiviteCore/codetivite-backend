@@ -151,7 +151,7 @@ app.get("/login", (_, res) => {
   res.redirect(authorizationUrl);
 });
 
-app.use("/api/v1.0/user", userroutes);
+app.use("/api/v1.0/users", userroutes);
 app.all("*", (_, res) =>
   res.status(NOT_FOUND).send({ message: "route not found" })
 );
