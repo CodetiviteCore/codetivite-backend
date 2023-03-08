@@ -79,7 +79,7 @@ app.get("/auth", async (req, res) => {
   let currentUser = await userModel.findById(payload.email);
 
   if (!currentUser || !currentUser.isActive) {
-    let name = payload.given_name;
+    let name = payload.given_name;   
     const token = generateToken(payload.email, name);
     const link = `http://localhost:5121/verify-token?token=${token}`;
 
@@ -87,17 +87,15 @@ app.get("/auth", async (req, res) => {
 
     return getTransport().sendMail(mailRequest, (error) => {
       if (error) {
-        res.status(NOT_FOUND).send("Can't send email.");
+        console.log(error);
+        return res.status(NOT_FOUND).send("Can't send email.");
       } else {
-        res.status(OK);
-        res.send({
-          message: `Link sent to ${email}`,
-        });
+        return res.status(OK).sendFile(path.join(__dirname, "/email.html"));
       }
     });
   }
 
-  res.redirect(OK, "/dashboard");
+  return res.redirect(OK, "/dashboard"); 
 });
 
 app.get("/verify-token", async (req, res) => {
@@ -110,10 +108,10 @@ app.get("/verify-token", async (req, res) => {
   let decodedToken;
   try {
     decodedToken = jwt.verify(token, process.env.JWT_SECRET_KEY);
-  } catch (e) {    
+  } catch (e) {
     res.status(UNAUTHORIZED).send("Invalid authentication credentials 1");
     return;
-  }  
+  }
   if (
     !decodedToken.hasOwnProperty("email") ||
     !decodedToken.hasOwnProperty("name") ||
@@ -136,18 +134,19 @@ app.get("/verify-token", async (req, res) => {
       _id: email,
       firstName: name,
       userName: email,
-      isActive: true
+      isActive: true,
     });
     currentUser = await currentUser.save();
-  }
-  else if(!currentUser.isActive){
-    await userModel.updateOne({_id : email}, {isActive : true});
+  } else if (!currentUser.isActive) {
+    await userModel.updateOne({ _id: email }, { isActive: true });
   }
 
-  return res.redirect(OK, "/dashboard");
+  res.redirect(OK, "/dashboard");
+  return;
 });
 
 app.get("/login", (_, res) => {
+  console.log(authorizationUrl)
   res.redirect(authorizationUrl);
 });
 
