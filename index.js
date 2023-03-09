@@ -4,7 +4,12 @@ const path = require("path");
 const jwt = require("jsonwebtoken");
 const { connectDatabase } = require("./src/config/database");
 const { userroutes } = require("./src/routes/v1/users-routes");
-const { OK, NOT_FOUND, UNAUTHORIZED } = require("./src/utility/status-codes");
+const {
+  OK,
+  NOT_FOUND,
+  UNAUTHORIZED,
+  INTERNAL_SERVER_ERROR,
+} = require("./src/utility/status-codes");
 const { google } = require("googleapis");
 const { OAuth2Client } = require("google-auth-library");
 const client_secret = require("./client_secret.json");
@@ -78,24 +83,42 @@ app.get("/auth", async (req, res) => {
 
   let currentUser = await userModel.findById(payload.email);
 
+  //Send a mail for non-existent or inactive users
   if (!currentUser || !currentUser.isActive) {
-    let name = payload.given_name;   
-    const token = generateToken(payload.email, name);
-    const link = `http://localhost:5121/verify-token?token=${token}`;
+    const token = generateToken(payload.email);
 
+    if (!currentUser) {
+      currentUser = new userModel({
+        _id: payload.email,
+        firstName: payload.given_name,
+        lastName: payload.family_name,
+        userName: payload.email,
+        isActive: false,
+        accessToken: token,
+      });
+      currentUser = await currentUser.save();
+    }
+
+    const link = `${process.env.URL}/verify-token?token=${token}`;
     let mailRequest = getMailOptions(payload.email, payload.given_name, link);
 
     return getTransport().sendMail(mailRequest, (error) => {
       if (error) {
-        console.log(error);
-        return res.status(NOT_FOUND).send("Can't send email.");
+        return res
+          .status(INTERNAL_SERVER_ERROR)
+          .send("An Error occured\nNo email sent!");
       } else {
         return res.status(OK).sendFile(path.join(__dirname, "/email.html"));
       }
     });
   }
 
-  return res.redirect(OK, "/dashboard"); 
+  //Login exisiting users
+  const authToken = generateToken(payload.email, currentUser);
+  console.log(authToken, "AUTHENTICATION - 3");
+
+  res.set("Authorization-Token", authToken);
+  return res.redirect(OK, "/dashboard");
 });
 
 app.get("/verify-token", async (req, res) => {
@@ -109,19 +132,18 @@ app.get("/verify-token", async (req, res) => {
   try {
     decodedToken = jwt.verify(token, process.env.JWT_SECRET_KEY);
   } catch (e) {
-    res.status(UNAUTHORIZED).send("Invalid authentication credentials 1");
+    res.status(UNAUTHORIZED).send("Invalid authentication credentials");
     return;
   }
   if (
     !decodedToken.hasOwnProperty("email") ||
-    !decodedToken.hasOwnProperty("name") ||
     !decodedToken.hasOwnProperty("expirationDate")
   ) {
-    res.status(UNAUTHORIZED).send("Invalid authentication credentials. 2");
+    res.status(UNAUTHORIZED).send("Invalid authentication credentials.");
     return;
   }
 
-  const { email, name, expirationDate } = decodedToken;
+  const { email, expirationDate } = decodedToken;
   if (expirationDate < new Date()) {
     res.status(UNAUTHORIZED).send("Token has expired.");
     return;
@@ -129,25 +151,28 @@ app.get("/verify-token", async (req, res) => {
 
   let currentUser = await userModel.findById(email);
 
-  if (!currentUser) {
-    currentUser = new userModel({
-      _id: email,
-      firstName: name,
-      userName: email,
-      isActive: true,
-    });
-    currentUser = await currentUser.save();
-  } else if (!currentUser.isActive) {
+  if(!currentUser){
+    return res.redirect("/login");
+  }
+
+  if (!currentUser.isActive) {
     await userModel.updateOne({ _id: email }, { isActive: true });
   }
 
-  res.redirect(OK, "/dashboard");
-  return;
+  const authToken = generateToken(email, currentUser);
+  console.log(authToken, "AUTHENTICATION - 2");
+
+  res.set("Authorization-Token", authToken);
+  return res.redirect(OK, "/dashboard");  
 });
 
-app.get("/login", (_, res) => {
-  console.log(authorizationUrl)
-  res.redirect(authorizationUrl);
+app.get("/login", (req, res) => {
+  const authToken = req.headers["Authorization-Token"];
+  console.log(authToken, "AUTHENTICATION - 1")
+  if (authToken) {
+    return res.redirect(OK, "/dashboard");
+  }
+  return res.redirect(authorizationUrl);
 });
 
 app.use("/api/v1.0/users", userroutes);
