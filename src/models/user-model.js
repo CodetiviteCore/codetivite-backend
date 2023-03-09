@@ -17,9 +17,10 @@ const userSchema = new Schema({
     trim: true,
     unique: true,
   },
-  password: {
+  lastName: {
     type: String,
     required: false,
+    trim: true
   },
   role: {
     type: String,
