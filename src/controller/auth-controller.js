@@ -15,7 +15,7 @@ exports.generateToken = (email, profile = null) => {
   const expiration_time = 60;
   expirationDate.setMinutes(new Date().getMinutes() + expiration_time);
   return jwt.sign(
-    { email, profile, expirationDate },
+    { email, profile: profile || "profile", expirationDate },
     process.env.JWT_SECRET_KEY
   );
 };
