@@ -72,6 +72,9 @@ app.get("/dashboard", async (_, res) => {
 
 app.get("/auth", async (req, res) => {
   const code = req.query.code;
+
+  console.log(code, "CODE");
+
   const { tokens } = await oauth2Client.getToken(code);
   
   const id_token = tokens.id_token;
@@ -89,7 +92,7 @@ app.get("/auth", async (req, res) => {
         _id: payload.email,
         firstName: payload.given_name,
         lastName: payload.family_name,
-        userName: email,
+        userName: payload.email,
         isActive: false,
         accessToken: token,
       });
