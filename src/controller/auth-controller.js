@@ -10,11 +10,14 @@ exports.getTransport = () =>
     },
   });
 
-exports.generateToken = (email, name) => {
+exports.generateToken = (email, profile = null) => {
   const expirationDate = new Date();
   const expiration_time = 60;
   expirationDate.setMinutes(new Date().getMinutes() + expiration_time);
-  return jwt.sign({ email, name, expirationDate }, process.env.JWT_SECRET_KEY);
+  return jwt.sign(
+    { email, profile, expirationDate },
+    process.env.JWT_SECRET_KEY
+  );
 };
 
 exports.getMailOptions = (email, firstname, link) => {
