@@ -73,14 +73,11 @@ app.get("/dashboard", async (_, res) => {
 app.get("/auth", async (req, res) => {
   const code = req.query.code;
   const { tokens } = await oauth2Client.getToken(code);
-
-  const token = tokens.access_token;
+  
   const id_token = tokens.id_token;
-
   oauth2Client.setCredentials(tokens);
 
   const payload = await verify(id_token).catch(console.error);
-
   let currentUser = await userModel.findById(payload.email);
 
   //Send a mail for non-existent or inactive users
@@ -92,7 +89,7 @@ app.get("/auth", async (req, res) => {
         _id: payload.email,
         firstName: payload.given_name,
         lastName: payload.family_name,
-        userName: payload.email,
+        userName: email,
         isActive: false,
         accessToken: token,
       });
@@ -115,8 +112,6 @@ app.get("/auth", async (req, res) => {
 
   //Login exisiting users
   const authToken = generateToken(payload.email, currentUser);
-  console.log(authToken, "AUTHENTICATION - 3");
-
   res.set("Authorization-Token", authToken);
   return res.redirect(OK, "/dashboard");
 });
@@ -124,7 +119,7 @@ app.get("/auth", async (req, res) => {
 app.get("/verify-token", async (req, res) => {
   const { token } = req.query;
   if (!token) {
-    res.status(UNAUTHORIZED).send("Invalid user token");
+    res.status(UNAUTHORIZED).send("Invalid authentication credentials");
     return;
   }
 
@@ -135,6 +130,7 @@ app.get("/verify-token", async (req, res) => {
     res.status(UNAUTHORIZED).send("Invalid authentication credentials");
     return;
   }
+  
   if (
     !decodedToken.hasOwnProperty("email") ||
     !decodedToken.hasOwnProperty("expirationDate")
@@ -160,15 +156,12 @@ app.get("/verify-token", async (req, res) => {
   }
 
   const authToken = generateToken(email, currentUser);
-  console.log(authToken, "AUTHENTICATION - 2");
-
   res.set("Authorization-Token", authToken);
   return res.redirect(OK, "/dashboard");  
 });
 
 app.get("/login", (req, res) => {
   const authToken = req.headers["Authorization-Token"];
-  console.log(authToken, "AUTHENTICATION - 1")
   if (authToken) {
     return res.redirect(OK, "/dashboard");
   }
