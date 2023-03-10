@@ -72,9 +72,6 @@ app.get("/dashboard", async (_, res) => {
 
 app.get("/auth", async (req, res) => {
   const code = req.query.code;
-
-  console.log(code, "CODE");
-
   const { tokens } = await oauth2Client.getToken(code);
   
   const id_token = tokens.id_token;
@@ -116,6 +113,7 @@ app.get("/auth", async (req, res) => {
   //Login exisiting users
   const authToken = generateToken(payload.email, currentUser);
   res.set("Authorization-Token", authToken);  
+  console.log("IN herer")
   return res.redirect(
     OK,
     `https://codetivite-demo.netlify.app?authToken=${authToken}`
@@ -163,6 +161,8 @@ app.get("/verify-token", async (req, res) => {
 
   const authToken = generateToken(email, currentUser);
   res.set("Authorization-Token", authToken);
+  console.log("IN herer - 2");
+
   return res.redirect(OK, `https://codetivite-demo.netlify.app?authToken=${authToken}`);  
 });
 
