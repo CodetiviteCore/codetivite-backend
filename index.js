@@ -115,8 +115,9 @@ app.get("/auth", async (req, res) => {
 
   //Login exisiting users
   const authToken = generateToken(payload.email, currentUser);
-  res.set("Authorization-Token", authToken);
-  return res.redirect(OK, "/dashboard");
+  res.set("Authorization-Token", authToken);  
+  return res.redirect(OK, `codetivite.com?authToken=${authToken}`);
+
 });
 
 app.get("/verify-token", async (req, res) => {
@@ -160,7 +161,7 @@ app.get("/verify-token", async (req, res) => {
 
   const authToken = generateToken(email, currentUser);
   res.set("Authorization-Token", authToken);
-  return res.redirect(OK, "/dashboard");  
+  return res.redirect(OK, `codetivite.com?authToken=${authToken}`);  
 });
 
 app.get("/login", (req, res) => {
