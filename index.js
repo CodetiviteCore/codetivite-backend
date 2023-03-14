@@ -3,7 +3,7 @@ const cors = require("cors");
 const path = require("path");
 const jwt = require("jsonwebtoken");
 const { connectDatabase } = require("./lib/config/database");
-const { userroutes } = require("./lib/routes/v1/users-routes");
+const apiRoutes = require("./lib/routes");
 const {
   OK,
   NOT_FOUND,
@@ -27,8 +27,6 @@ require("dotenv").config({
 const app = express();
 connectDatabase();
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
 app.use(
   cors({
     origin: "*",
@@ -63,7 +61,7 @@ async function verify(token) {
 }
 
 app.get("/", async (_, res) => {
-  res.status(OK).sendFile(path.join(__dirname, "/index.html"));
+  res.send("Welcome to codetivite's backend api :)");
 });
 
 app.get("/dashboard", async (_, res) => {
@@ -186,7 +184,7 @@ app.get("/login", (req, res) => {
   return res.redirect(authorizationUrl);
 });
 
-app.use("/api/v1.0/users", userroutes);
+app.use("/api", apiRoutes);
 app.all("*", (_, res) =>
   res.status(NOT_FOUND).send({ message: "route not found" })
 );
