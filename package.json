@@ -1,7 +1,7 @@
 {
   "name": "codetivite-backend",
   "description": "Codetivite Backend API",
-  "author": "Codetivite-Backend-Team",
+  "license": "UNLICENSED",
   "scripts": {
     "dev": "nodemon index.js"
   },
