@@ -9,7 +9,7 @@ const {
   NOT_FOUND,
   UNAUTHORIZED,
   INTERNAL_SERVER_ERROR,
-} = require("./lib/utility/status-codes");
+} = require("./lib/utils/status-codes");
 const { google } = require("googleapis");
 const { OAuth2Client } = require("google-auth-library");
 const client_secret = require("./client_secret.json");
