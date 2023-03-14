@@ -2,23 +2,23 @@ const express = require("express");
 const cors = require("cors");
 const path = require("path");
 const jwt = require("jsonwebtoken");
-const { connectDatabase } = require("./src/config/database");
-const { userroutes } = require("./src/routes/v1/users-routes");
+const { connectDatabase } = require("./lib/config/database");
+const { userroutes } = require("./lib/routes/v1/users-routes");
 const {
   OK,
   NOT_FOUND,
   UNAUTHORIZED,
   INTERNAL_SERVER_ERROR,
-} = require("./src/utility/status-codes");
+} = require("./lib/utility/status-codes");
 const { google } = require("googleapis");
 const { OAuth2Client } = require("google-auth-library");
 const client_secret = require("./client_secret.json");
-const userModel = require("./src/models/user-model");
+const userModel = require("./lib/models/user-model");
 const {
   generateToken,
   getMailOptions,
   getTransport,
-} = require("./src/controller/auth-controller");
+} = require("./lib/controller/auth-controller");
 
 require("dotenv").config({
   path: `.env.${process.env.NODE_ENV || "development"}.local`,
