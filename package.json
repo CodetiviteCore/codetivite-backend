@@ -3,7 +3,7 @@
   "description": "Codetivite Backend API",
   "license": "UNLICENSED",
   "scripts": {
-    "dev": "nodemon index.js"
+    "dev": "nodemon ."
   },
   "dependencies": {
     "cookie-parser": "^1.4.6",
