@@ -1,3 +1,4 @@
+const { PORT, NODE_ENV } = require("./lib/config/env")
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
@@ -19,10 +20,6 @@ const {
   getMailOptions,
   getTransport,
 } = require("./lib/controller/auth-controller");
-
-require("dotenv").config({
-  path: `.env.${process.env.NODE_ENV || "development"}.local`,
-});
 
 const app = express();
 connectDatabase();
@@ -189,11 +186,11 @@ app.all("*", (_, res) =>
   res.status(NOT_FOUND).send({ message: "route not found" })
 );
 
-app.listen(process.env.PORT, () => {
+app.listen(PORT, () => {
   console.log(
-    `Listening on ${process.env.PORT}\n${
-      !process.env.NODE_ENV || process.env.NODE_ENV === "development"
-        ? "Visit http://localhost:5121/"
+    `Listening on port:${PORT}${
+      NODE_ENV === "development"
+        ? `\nVisit http://localhost:${PORT}/`
         : ""
     }`
   );
