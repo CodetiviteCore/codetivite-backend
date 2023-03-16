@@ -4,6 +4,7 @@ const {
   careerPath,
   newUser,
 } = require("../../controller/users-controller");
+const authorize = require("../../middlewares/authorize")
 
 const userroutes = Router();
 
@@ -11,6 +12,6 @@ userroutes.post("/add-to-mail-list", addToMailList);
 
 userroutes.post("/add-user", newUser);
 
-userroutes.get("/career-path", careerPath);
+userroutes.get("/career-path", authorize, careerPath);
 
 module.exports = { userroutes };
