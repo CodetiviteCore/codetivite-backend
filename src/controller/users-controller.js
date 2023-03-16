@@ -24,7 +24,6 @@ exports.addToMailList = async (request, response, next) => {
         userName: email,
       });
       currentUser = await currentUser.save();
-  
     }
 
     response.status(OK).json({
@@ -36,7 +35,7 @@ exports.addToMailList = async (request, response, next) => {
   }
 };
 
-exports.newUser = async (request, response ) => {
+exports.newUser = async (request, response) => {
   const body = request.body;
 
   let email = body.email;
@@ -49,19 +48,26 @@ exports.newUser = async (request, response ) => {
   currentUser = await currentUser.save();
 
   response.send(currentUser);
-}
+};
 
 exports.careerPath = async (request, response) => {
+  const email = request.user.email;
+  console.log("user email: " + email);
+
   const name = request.query.name;
   console.log("career-path: " + name);
 
   const user = await userModel.findOneAndUpdate(
     {
-      userName: "whitedice@gmail.com",
+      _id: email,
+    },
+    {
+      careerPath: name,
+    },
+    {}
+  );
 
-  }, {
-    firstName: "new-white-dice"
-  }, {});
+  await user.save();
 
-  response.redirect("/dashboard");
+  response.end();
 };
