@@ -81,15 +81,14 @@ app.get("/auth", async (req, res) => {
   let currentUser = await userModel.findById(payload.email);
 
   //Send a mail for non-existent or inactive users
-  if (!currentUser || !currentUser.lastName) {   
-
+  if (!currentUser || !currentUser.lastName) {
     if (!currentUser) {
       currentUser = new userModel({
         _id: payload.email,
         firstName: payload.given_name,
         lastName: payload.family_name,
         userName: payload.email,
-        isActive: false        
+        isActive: false,
       });
 
       currentUser = await currentUser.save();
@@ -117,7 +116,10 @@ app.get("/auth", async (req, res) => {
   const authToken = generateToken(payload.email, currentUser);
 
   if (!currentUser.isActive) {
-    await userModel.updateOne({ _id: email }, { isActive: true, accessToken: authToken });
+    await userModel.updateOne(
+      { _id: email },
+      { isActive: true, accessToken: authToken }
+    );
   }
 
   //Login exisiting users
