@@ -35,11 +35,26 @@
   </head>
   <body class="container">
     <section class="centered">
-        <h1>Welcome To Codetivite Official API</h1>
-    <h3>
-      Click <a href="https://codetivite.com/">Here</a> For Our Official
-      Documentaion
-    </h3>
-    </section>    
+      <h1>Welcome To Codetivite Official API</h1>
+      <h3>
+        Click <a href="https://codetivite.com/">Here</a> For Our Official
+        Documentaion
+      </h3>
+    </section>
+
+    <button id="myButton" onclick="sendRequest()">Backend</button>
+    <button id="myButton2" onclick="sendRequestt()">Frontend</button>
+
+    <script>
+      function sendRequest() {
+        const buttonName = document.getElementById("myButton").innerText;
+        window.location.href = `/api/v1.0/users/career-path?name=${buttonName}`;
+      }
+
+      function sendRequestt() {
+        const buttonName = document.getElementById("myButton2").innerText;
+        window.location.href = `/api/v1.0/users/career-path?name=${buttonName}`;
+      }
+    </script>
   </body>
 </html>
