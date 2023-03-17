@@ -50,6 +50,9 @@ exports.newUser = async (request, response) => {
   response.send(currentUser);
 };
 
+// create a route that returns an array of strings ---which are the specific careerPaths
+
+
 exports.careerPath = async (request, response) => {
   const email = request.user.email;
   console.log("user email: " + email);
