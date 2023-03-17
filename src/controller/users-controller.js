@@ -36,10 +36,8 @@ exports.addToMailList = async (request, response, next) => {
 };
 
 exports.createUser = async (request, response) => {
-  const body = request.body;
+  const { email, firstName } = request.body;
 
-  let email = body.email;
-  let firstName = body.firstName;
   let currentUser = new userModel({
     _id: email,
     firstName: firstName,
@@ -47,30 +45,25 @@ exports.createUser = async (request, response) => {
   });
   currentUser = await currentUser.save();
 
-  response.send(currentUser);
+  response.status(OK).send(currentUser);
 };
 
 // create a route that returns an array of strings ---which are the specific careerPaths
 
-
 exports.updateCareerPath = async (request, response) => {
-  const email = request.user.email;
-  console.log("user email: " + email);
+  // const email = request.user.email;
+  const email = "canicecodes@gmail.com";
 
   const name = request.query.name;
-  console.log("career-path: " + name);
 
-  const user = await userModel.findOneAndUpdate(
+  await userModel.findOneAndUpdate(
     {
       _id: email,
     },
     {
       careerPath: name,
-    },
-    {}
+    }
   );
 
-  await user.save();
-
-  response.end();
+  response.status(OK).send({ message: "success" });
 };
