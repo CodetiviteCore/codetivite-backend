@@ -71,7 +71,7 @@ app.get("/dashboard", async (_, res) => {
 });
 
 app.get("/auth", async (req, res) => {
-  const code = req.query.token;
+  const code = req.query.code;  
   const { tokens } = await oauth2Client.getToken(code);
 
   const id_token = tokens.id_token;
@@ -81,34 +81,34 @@ app.get("/auth", async (req, res) => {
   let currentUser = await userModel.findById(payload.email);
 
   //Send a mail for non-existent or inactive users
-  if (!currentUser || !currentUser.lastName) {   
-
-    if (!currentUser) {
+  if (!currentUser || !currentUser.lastName) {
+    if (!currentUser) {     
       currentUser = new userModel({
         _id: payload.email,
         firstName: payload.given_name,
         lastName: payload.family_name,
         userName: payload.email,
-        isActive: false        
+        isActive: false,
       });
 
       currentUser = await currentUser.save();
     } else if (!currentUser.lastName) {
+     
       await userModel.updateOne(
         { _id: email },
         { lastName: payload.family_name }
       );
     }
 
-    const link = `${process.env.FE_HOST}?token=${code}`;
-    let mailRequest = getMailOptions(payload.email, payload.given_name, link);
+    const link = `${process.env.FE_HOST}?code=${code}`;
+    let mailRequest = getMailOptions(payload.email, payload.given_name, link);     
 
     return getTransport().sendMail(mailRequest, (error) => {
       if (error) {
         return res
           .status(INTERNAL_SERVER_ERROR)
           .send("An Error occured\nNo email sent!");
-      } else {
+      } else {       
         return res.status(OK).send({ message: "Email Sent", sentEmail: true });
       }
     });
@@ -116,12 +116,15 @@ app.get("/auth", async (req, res) => {
 
   const authToken = generateToken(payload.email, currentUser);
 
-  if (!currentUser.isActive) {
-    await userModel.updateOne({ _id: email }, { isActive: true, accessToken: authToken });
+  if (!currentUser.isActive) {     
+    await userModel.updateOne(
+      { _id: payload.email },
+      { isActive: true, accessToken: authToken }
+    );
   }
 
   //Login exisiting users
-  res.set(authToken);
+  res.set(authToken);   
   return res
     .status(OK)
     .send({ message: "Sucess", authToken, sentEmail: false });
