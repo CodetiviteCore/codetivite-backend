@@ -45,12 +45,7 @@
       const queryString = window.location.search;
       //console.log(queryString, "String");
       const urlParam = new URLSearchParams(queryString);
-      fetch(`http://localhost:5121/auth?${urlParam.toString()}`).then(res => console.log(res, "RESPONSE"))
+      fetch(`http://localhost:5121/auth?${urlParam.toString()}`).then(res => res)
     </script>   
   </body>
 </html>
-
-http://localhost:3000/
-?code=4%2F0AWtgzh786uEBcCHXhRjTXg3X4Xw3ZPGxSTkSwv05qs7avzNsI10JMqQ4MUVIdQCKOz2Vmw&scope=email+profile+openid+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&authuser=5&prompt=none
-
-4/0AWtgzh786uEBcCHXhRjTXg3X4Xw3ZPGxSTkSwv05qs7avzNsI10JMqQ4MUVIdQCKOz2Vmw
