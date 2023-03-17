@@ -35,7 +35,7 @@ exports.addToMailList = async (request, response, next) => {
   }
 };
 
-exports.newUser = async (request, response) => {
+exports.createUser = async (request, response) => {
   const body = request.body;
 
   let email = body.email;
@@ -53,7 +53,7 @@ exports.newUser = async (request, response) => {
 // create a route that returns an array of strings ---which are the specific careerPaths
 
 
-exports.careerPath = async (request, response) => {
+exports.updateCareerPath = async (request, response) => {
   const email = request.user.email;
   console.log("user email: " + email);
 
