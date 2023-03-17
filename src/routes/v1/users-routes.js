@@ -12,6 +12,6 @@ userroutes.post("/add-to-mail-list", addToMailList);
 
 userroutes.post("/add-user", createUser);
 
-userroutes.get("/career-path", authorize, updateCareerPath);
+userroutes.put("/career-path", authorize, updateCareerPath);
 
 module.exports = { userroutes };
