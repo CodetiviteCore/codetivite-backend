@@ -24,7 +24,8 @@ exports.getMailOptions = (email, firstname, link) => {
   let body = `
   <h3>Hey ${firstname}!</h3>
   <p>Welcome to Codetivite! We are super pumped to have you</p>
-  <p><a href="${link}">Click this</a> to continue to the contivite platform:</p>  
+  <p>Click this to continue to the contivite platform:</p>
+  <p>${link}</p>
   <p>Please note that for added security this link becomes invalid after 45 minutes</p>
   <br />
   <p>Stay Jiggy!</p>

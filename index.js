@@ -71,9 +71,9 @@ app.get("/dashboard", async (_, res) => {
 });
 
 app.get("/auth", async (req, res) => {
-  const code = req.query.code;  
+  const code = req.query.code;
   const { tokens } = await oauth2Client.getToken(code);
-
+  
   const id_token = tokens.id_token;
   oauth2Client.setCredentials(tokens);
 
@@ -81,53 +81,43 @@ app.get("/auth", async (req, res) => {
   let currentUser = await userModel.findById(payload.email);
 
   //Send a mail for non-existent or inactive users
-  if (!currentUser || !currentUser.lastName) {
-    if (!currentUser) {     
+  if (!currentUser || !currentUser.isActive) {
+    const token = generateToken(payload.email);
+
+    if (!currentUser) {
       currentUser = new userModel({
         _id: payload.email,
         firstName: payload.given_name,
         lastName: payload.family_name,
         userName: payload.email,
         isActive: false,
+        accessToken: token,
       });
-
       currentUser = await currentUser.save();
-    } else if (!currentUser.lastName) {
-     
-      await userModel.updateOne(
-        { _id: email },
-        { lastName: payload.family_name }
-      );
     }
 
-    const link = `${process.env.FE_HOST}?code=${code}`;
-    let mailRequest = getMailOptions(payload.email, payload.given_name, link);     
+    const link = `${process.env.URL}/verify-token?token=${token}`;
+    let mailRequest = getMailOptions(payload.email, payload.given_name, link);
 
     return getTransport().sendMail(mailRequest, (error) => {
       if (error) {
         return res
           .status(INTERNAL_SERVER_ERROR)
           .send("An Error occured\nNo email sent!");
-      } else {       
-        return res.status(OK).send({ message: "Email Sent", sentEmail: true });
+      } else {
+        return res.status(OK).sendFile(path.join(__dirname, "/email.html"));
       }
     });
   }
 
-  const authToken = generateToken(payload.email, currentUser);
-
-  if (!currentUser.isActive) {     
-    await userModel.updateOne(
-      { _id: payload.email },
-      { isActive: true, accessToken: authToken }
-    );
-  }
-
   //Login exisiting users
-  res.set(authToken);   
-  return res
-    .status(OK)
-    .send({ message: "Sucess", authToken, sentEmail: false });
+  const authToken = generateToken(payload.email, currentUser);
+  res.set("Authorization-Token", authToken);  
+  console.log("IN herer")
+  return res.redirect(
+    OK,
+    `https://codetivite-demo.netlify.app?authToken=${authToken}`
+  );  
 });
 
 app.get("/verify-token", async (req, res) => {
@@ -144,31 +134,24 @@ app.get("/verify-token", async (req, res) => {
     res.status(UNAUTHORIZED).send("Invalid authentication credentials");
     return;
   }
-
+  
   if (
-    !decodedToken.hasOwnProperty("code") ||
+    !decodedToken.hasOwnProperty("email") ||
     !decodedToken.hasOwnProperty("expirationDate")
   ) {
     res.status(UNAUTHORIZED).send("Invalid authentication credentials.");
     return;
   }
 
-  const { code, expirationDate } = decodedToken;
-
+  const { email, expirationDate } = decodedToken;
   if (expirationDate < new Date()) {
     res.status(UNAUTHORIZED).send("Token has expired.");
     return;
   }
 
-  const { tokens } = await oauth2Client.getToken(code);
+  let currentUser = await userModel.findById(email);
 
-  const id_token = tokens.id_token;
-  oauth2Client.setCredentials(tokens);
-
-  const payload = await verify(id_token).catch(console.error);
-  let currentUser = await userModel.findById(payload.email);
-
-  if (!currentUser) {
+  if(!currentUser){
     return res.redirect("/login");
   }
 
@@ -178,7 +161,9 @@ app.get("/verify-token", async (req, res) => {
 
   const authToken = generateToken(email, currentUser);
   res.set("Authorization-Token", authToken);
-  return res.status(OK).send({ message: "Sucess", authToken });
+  console.log("IN herer - 2");
+
+  return res.redirect(OK, `https://codetivite-demo.netlify.app?authToken=${authToken}`);  
 });
 
 app.get("/login", (req, res) => {
