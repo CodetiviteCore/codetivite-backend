@@ -1,3 +1,6 @@
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV || "development"}.local`,
+});
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
@@ -19,10 +22,6 @@ const {
   getMailOptions,
   getTransport,
 } = require("./src/controller/auth-controller");
-
-require("dotenv").config({
-  path: `.env.${process.env.NODE_ENV || "development"}.local`,
-});
 
 const app = express();
 connectDatabase();
@@ -71,8 +70,12 @@ app.get("/dashboard", async (_, res) => {
 });
 
 app.get("/auth", async (req, res) => {
-  const code = req.query.code;  
+  console.log("In code");
+  const code = req.query.code;
+  console.log("In code code", code);
+
   const { tokens } = await oauth2Client.getToken(code);
+  console.log("In code tokens", tokens);
 
   console.log(code, "Code")
   console.log(tokens, "Tokens");
@@ -80,20 +83,25 @@ app.get("/auth", async (req, res) => {
 
   const id_token = tokens.id_token;
   oauth2Client.setCredentials(tokens);
+  console.log("In code after setcredentials", id_token);
 
   console.log(id_token, "id Token");
 
 
   const payload = await verify(id_token).catch(console.error);
-  console.log(payload, "payload");
+
+  console.log("In code payload", payload);
 
   let currentUser = await userModel.findById(payload.email);
+  console.log("In code currentUser", currentUser);
+
+  const authToken = generateToken(payload.email, currentUser);
 
   console.log(currentUser, "payload")
 
   //Send a mail for non-existent or inactive users
   if (!currentUser || !currentUser.lastName) {
-    if (!currentUser) {     
+    if (!currentUser) {
       currentUser = new userModel({
         _id: payload.email,
         firstName: payload.given_name,
@@ -104,38 +112,29 @@ app.get("/auth", async (req, res) => {
 
       currentUser = await currentUser.save();
     } else if (!currentUser.lastName) {
-     
       await userModel.updateOne(
         { _id: email },
         { lastName: payload.family_name }
       );
     }
 
-    const link = `${process.env.FE_HOST}?code=${code}`;
-    let mailRequest = getMailOptions(payload.email, payload.given_name, link);     
+    const link = `${process.env.FE_HOST}?token=${authToken}`;
+    let mailRequest = getMailOptions(payload.email, payload.given_name, link);
 
     return getTransport().sendMail(mailRequest, (error) => {
       if (error) {
+        console.error(error);
         return res
           .status(INTERNAL_SERVER_ERROR)
           .send("An Error occured\nNo email sent!");
-      } else {       
+      } else {
         return res.status(OK).send({ message: "Email Sent", sentEmail: true });
       }
     });
   }
 
-  const authToken = generateToken(payload.email, currentUser);
-
-  if (!currentUser.isActive) {     
-    await userModel.updateOne(
-      { _id: payload.email },
-      { isActive: true, accessToken: authToken }
-    );
-  }
-
   //Login exisiting users
-  res.set(authToken);   
+  res.set(authToken);
   return res
     .status(OK)
     .send({ message: "Sucess", authToken, sentEmail: false });
