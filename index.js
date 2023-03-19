@@ -110,7 +110,8 @@ app.get("/auth", async (req, res) => {
       );
     }
 
-    const link = `${process.env.FE_HOST}?code=${code}`;
+
+    const link = `${process.env.FE_HOST}?code=${new URLSearchParams(code).toString()}`;
     let mailRequest = getMailOptions(payload.email, payload.given_name, link);     
 
     return getTransport().sendMail(mailRequest, (error) => {
