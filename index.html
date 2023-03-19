@@ -43,9 +43,10 @@
     </section> 
     <script>
       const queryString = window.location.search;
-      //console.log(queryString, "String");
+      console.log(queryString, "String");
       const urlParam = new URLSearchParams(queryString);
-      fetch(`http://localhost:5121/auth?${urlParam.toString()}`).then(res => res)
+      console.log(urlParam.toString(), "URLParam")
+      fetch(`https://codetivite-api2.onrender.com/auth?code=4/0AWtgzh6BLJ-13-i-S9GMGHbw1725C5ud8P_inQRv4MG2YuLOrm92wVVEUV_cElHHZJPdRw`).then(res => console.log(res))
     </script>   
   </body>
 </html>

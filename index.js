@@ -74,11 +74,22 @@ app.get("/auth", async (req, res) => {
   const code = req.query.code;  
   const { tokens } = await oauth2Client.getToken(code);
 
+  console.log(code, "Code")
+  console.log(tokens, "Tokens");
+
+
   const id_token = tokens.id_token;
   oauth2Client.setCredentials(tokens);
 
+  console.log(id_token, "id Token");
+
+
   const payload = await verify(id_token).catch(console.error);
+  console.log(payload, "payload");
+
   let currentUser = await userModel.findById(payload.email);
+
+  console.log(currentUser, "payload")
 
   //Send a mail for non-existent or inactive users
   if (!currentUser || !currentUser.lastName) {
