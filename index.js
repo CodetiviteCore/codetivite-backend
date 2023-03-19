@@ -1,3 +1,6 @@
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV || "development"}.local`,
+});
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
@@ -20,9 +23,6 @@ const {
   getTransport,
 } = require("./src/controller/auth-controller");
 
-require("dotenv").config({
-  path: `.env.${process.env.NODE_ENV || "development"}.local`,
-});
 
 const app = express();
 connectDatabase();
