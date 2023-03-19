@@ -1,7 +1,8 @@
 const { UNAUTHORIZED } = require("../utility/status-codes");
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
+const userModel = require("../models/user-model");
 
-module.exports = function (req, res, next) {
+module.exports = async function (req, res, next) {
   const splittedAuthHeader = req.headers.authorization?.split(" ");
 
   if (!splittedAuthHeader) {
@@ -10,6 +11,13 @@ module.exports = function (req, res, next) {
 
   if (splittedAuthHeader.length != 2) {
     return res.status(UNAUTHORIZED).send("Invalid authorization header specified.\nIt must be a bearer auth token");
+  }
+  
+  if (!(await userModel.findById(payload.email))?.isActive) {
+    await userModel.updateOne(
+      { _id: payload.email },
+      { isActive: true, accessToken: authToken }
+    );
   }
 
   try {
