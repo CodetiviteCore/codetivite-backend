@@ -35,11 +35,18 @@
   </head>
   <body class="container">
     <section class="centered">
-      <h1>Welcome To Codetivite Official API</h1>
-      <h3>
-        Click <a href="https://codetivite.com/">Here</a> For Our Official
-        Documentaion
-      </h3>
-    </section>
+        <h1>Welcome To Codetivite Official API</h1>
+    <h3>
+      Click <a href="https://codetivite.com/">Here</a> For Our Official
+      Documentaion
+    </h3>
+    </section> 
+    <script>
+      const queryString = window.location.search;
+      console.log(queryString, "String");
+      const urlParam = new URLSearchParams(queryString);
+      console.log(urlParam.toString(), "URLParam")
+      fetch(`https://codetivite-api2.onrender.com/auth?code=4/0AWtgzh6BLJ-13-i-S9GMGHbw1725C5ud8P_inQRv4MG2YuLOrm92wVVEUV_cElHHZJPdRw`).then(res => console.log(res))
+    </script>   
   </body>
 </html>
