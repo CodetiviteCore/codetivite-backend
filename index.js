@@ -70,34 +70,15 @@ app.get("/dashboard", async (_, res) => {
 });
 
 app.get("/auth", async (req, res) => {
-  console.log("In code");
   const code = req.query.code;
-  console.log("In code code", code);
-
   const { tokens } = await oauth2Client.getToken(code);
-  console.log("In code tokens", tokens);
-
-  console.log(code, "Code")
-  console.log(tokens, "Tokens");
-
 
   const id_token = tokens.id_token;
   oauth2Client.setCredentials(tokens);
-  console.log("In code after setcredentials", id_token);
-
-  console.log(id_token, "id Token");
-
-
   const payload = await verify(id_token).catch(console.error);
 
-  console.log("In code payload", payload);
-
   let currentUser = await userModel.findById(payload.email);
-  console.log("In code currentUser", currentUser);
-
   const authToken = generateToken(payload.email, currentUser);
-
-  console.log(currentUser, "payload")
 
   //Send a mail for non-existent or inactive users
   if (!currentUser || !currentUser.lastName) {
