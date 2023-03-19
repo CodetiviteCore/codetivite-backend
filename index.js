@@ -115,6 +115,7 @@ app.get("/auth", async (req, res) => {
 
     return getTransport().sendMail(mailRequest, (error) => {
       if (error) {
+        console.error(error)
         return res
           .status(INTERNAL_SERVER_ERROR)
           .send("An Error occured\nNo email sent!");
