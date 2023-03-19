@@ -23,7 +23,6 @@ const {
   getTransport,
 } = require("./src/controller/auth-controller");
 
-
 const app = express();
 connectDatabase();
 
@@ -71,13 +70,12 @@ app.get("/dashboard", async (_, res) => {
 });
 
 app.get("/auth", async (req, res) => {
-  console.log("In code")
+  console.log("In code");
   const code = req.query.code;
   console.log("In code code", code);
 
   const { tokens } = await oauth2Client.getToken(code);
   console.log("In code tokens", tokens);
-
 
   const id_token = tokens.id_token;
   oauth2Client.setCredentials(tokens);
@@ -85,14 +83,16 @@ app.get("/auth", async (req, res) => {
 
   const payload = await verify(id_token).catch(console.error);
 
-   console.log("In code payload", payload)
+  console.log("In code payload", payload);
 
   let currentUser = await userModel.findById(payload.email);
-  console.log("In code currentUser", currentUser)
+  console.log("In code currentUser", currentUser);
+
+  const authToken = generateToken(payload.email, currentUser);
 
   //Send a mail for non-existent or inactive users
   if (!currentUser || !currentUser.lastName) {
-    if (!currentUser) {     
+    if (!currentUser) {
       currentUser = new userModel({
         _id: payload.email,
         firstName: payload.given_name,
@@ -103,40 +103,29 @@ app.get("/auth", async (req, res) => {
 
       currentUser = await currentUser.save();
     } else if (!currentUser.lastName) {
-     
       await userModel.updateOne(
         { _id: email },
         { lastName: payload.family_name }
       );
     }
 
-
-    const link = `${process.env.FE_HOST}?code=${new URLSearchParams(code).toString()}`;
-    let mailRequest = getMailOptions(payload.email, payload.given_name, link);     
+    const link = `${process.env.FE_HOST}?token=${authToken}`;
+    let mailRequest = getMailOptions(payload.email, payload.given_name, link);
 
     return getTransport().sendMail(mailRequest, (error) => {
       if (error) {
-        console.error(error)
+        console.error(error);
         return res
           .status(INTERNAL_SERVER_ERROR)
           .send("An Error occured\nNo email sent!");
-      } else {       
+      } else {
         return res.status(OK).send({ message: "Email Sent", sentEmail: true });
       }
     });
   }
 
-  const authToken = generateToken(payload.email, currentUser);
-
-  if (!currentUser.isActive) {     
-    await userModel.updateOne(
-      { _id: payload.email },
-      { isActive: true, accessToken: authToken }
-    );
-  }
-
   //Login exisiting users
-  res.set(authToken);   
+  res.set(authToken);
   return res
     .status(OK)
     .send({ message: "Sucess", authToken, sentEmail: false });
