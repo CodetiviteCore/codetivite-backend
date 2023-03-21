@@ -3,6 +3,7 @@ const {
   addToMailList,
   updateCareerPath,
   createUser,
+  renderCareerPaths,
 } = require("../../controller/users-controller");
 const authorize = require("../../middlewares/authorize");
 
@@ -13,5 +14,7 @@ userroutes.post("/add-to-mail-list", addToMailList);
 userroutes.post("/add-user", createUser);
 
 userroutes.put("/career-path", authorize, updateCareerPath);
+
+userroutes.get("/career-paths", renderCareerPaths);
 
 module.exports = { userroutes };
