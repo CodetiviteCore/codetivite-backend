@@ -49,6 +49,26 @@ exports.createUser = async (request, response) => {
 };
 
 // create a route that returns an array of strings ---which are the specific careerPaths
+exports.renderCareerPaths = async (request, response) => {
+  let careers = {
+    "frontend-dev" : 1,
+    "backend-dev" : 2,
+    "solidity-dev" : 3,
+    "blockchain-dev" : 4,
+    "defi-dev" : 5,
+    "uiux" : 6,
+    "technical-wri" : 7,
+    "full-stack-dev" : 8,
+    "product-manager" : 9,
+    "community-manager" : 10,
+    "rust-dev" : 11,
+    "devops" : 12,
+    "graphic-des" : 13,
+    "smart-contract-dev" : 14,
+  }
+
+  response.status(OK).send(careers);
+}
 
 exports.updateCareerPath = async (request, response) => {
   // const email = request.user.email;
