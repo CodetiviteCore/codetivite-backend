@@ -78,7 +78,7 @@ app.get("/auth", async (req, res) => {
   const payload = await verify(id_token).catch(console.error);
 
   let currentUser = await userModel.findById(payload.email);
-  const authToken = generateToken(payload.email, currentUser);
+  let authToken = generateToken(payload.email, currentUser);
 
   //Send a mail for non-existent or inactive users
   if (!currentUser || !currentUser.lastName) {
@@ -99,6 +99,7 @@ app.get("/auth", async (req, res) => {
       );
     }
 
+    authToken = generateToken(payload.email, currentUser);
     const link = `${process.env.FE_HOST}?token=${authToken}`;
     let mailRequest = getMailOptions(payload.email, payload.given_name, link);
 
@@ -119,58 +120,7 @@ app.get("/auth", async (req, res) => {
   return res
     .status(OK)
     .send({ message: "Sucess", authToken, sentEmail: false });
-});
-
-app.get("/verify-token", async (req, res) => {
-  const { token } = req.query;
-  if (!token) {
-    res.status(UNAUTHORIZED).send("Invalid authentication credentials");
-    return;
-  }
-
-  let decodedToken;
-  try {
-    decodedToken = jwt.verify(token, process.env.JWT_SECRET_KEY);
-  } catch (e) {
-    res.status(UNAUTHORIZED).send("Invalid authentication credentials");
-    return;
-  }
-
-  if (
-    !decodedToken.hasOwnProperty("code") ||
-    !decodedToken.hasOwnProperty("expirationDate")
-  ) {
-    res.status(UNAUTHORIZED).send("Invalid authentication credentials.");
-    return;
-  }
-
-  const { code, expirationDate } = decodedToken;
-
-  if (expirationDate < new Date()) {
-    res.status(UNAUTHORIZED).send("Token has expired.");
-    return;
-  }
-
-  const { tokens } = await oauth2Client.getToken(code);
-
-  const id_token = tokens.id_token;
-  oauth2Client.setCredentials(tokens);
-
-  const payload = await verify(id_token).catch(console.error);
-  let currentUser = await userModel.findById(payload.email);
-
-  if (!currentUser) {
-    return res.redirect("/login");
-  }
-
-  if (!currentUser.isActive) {
-    await userModel.updateOne({ _id: email }, { isActive: true });
-  }
-
-  const authToken = generateToken(email, currentUser);
-  res.set("Authorization-Token", authToken);
-  return res.status(OK).send({ message: "Sucess", authToken });
-});
+});                                                     
 
 app.get("/login", (req, res) => {
   const authToken = req.headers["Authorization-Token"];
