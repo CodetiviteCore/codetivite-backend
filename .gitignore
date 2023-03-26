@@ -2,5 +2,5 @@ node_modules
 .env
 .env.development.local
 .env.production.local
-client_secret.json
+.env.sample
 client_secret.json
