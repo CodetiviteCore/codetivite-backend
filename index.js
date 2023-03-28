@@ -19,7 +19,7 @@ app.use(
 );
 
 app.get("/", async (_, res) => {
-  res.status(OK).sendFile(path.join(__dirname, "/index.html"));
+  res.status(OK).send("Welcome to Codetivite :)");
 });
 
 app.use("/api", apiRoutes);
