@@ -2,7 +2,7 @@ const { UNAUTHORIZED } = require("../utility/status-codes");
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 const userModel = require("../models/user-model");
 
-module.exports = async function (req, res, next) {
+exports.authenticateMiddleware = async function (req, res, next) {
   const splittedAuthHeader = req.headers.authorization?.split(" ");
 
   if (!splittedAuthHeader) {
