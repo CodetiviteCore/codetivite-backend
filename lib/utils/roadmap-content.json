@@ -1,0 +1,306 @@
+[
+    {
+        "careerPath": "backend",
+        "levels": [
+            {
+                "junior": [
+                    {
+                        "title": "NodeJs Basics",
+                        "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=1zTazJBbPuOYBgL7DpuH3H6RL292_LPizVcC6z2Ozsjg&exportFormat=html",
+                        "projectId": "644401acd6e64ef4056e11b9",
+                        "projectDescription": "Build a simple web server using Node.js. Use the HTTP module to create a server that listens on a port and returns Hello, World! to any request."
+                    },
+                    {
+                        "title": "HTTP and Express.js",
+                        "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=1V0hKMpEgxKEfq71BX1hf8N-aROpLJo21MbWLKAW__pQ&exportFormat=html",
+                        "projectId": "644401add6e64ef4056e11ba",
+                        "projectDescription": "Build a simple RESTful API using Express.js. Use the express module to create a server that listens on a port and responds to GET, POST, PUT, and DELETE requests. Use MongoDB to store and retrieve data."
+                    },
+                    {
+                        "title": "MongoDB and Mongoose.js",
+                        "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=1wG3ouCfAaJ_MTiupBI6pifzve8S-jyU7CyUT8TzZ6r8&exportFormat=html",
+                        "projectId": "644401add6e64ef4056e11bb",
+                        "projectDescription": "Build a simple e-commerce RESTful API that uses MongoDB as its backend database. Implement CRUD operations for the application&#39;s data, and add support for basic text search using MongoDB&#39;s text search functionality."
+                    },
+                    {
+                        "title": "Testing and Debugging",
+                        "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=1GjeFrKJGs592hSTS04yvmaSSiNZuwA_F5V-y-cNqy80&exportFormat=html",
+                        "projectId": "644401aed6e64ef4056e11bc",
+                        "projectDescription": "Write automated tests for the RESTful API developed in the previous milestone using Mocha and Chai"
+                    }
+                ],
+                "entrylevel": [
+                    {
+                        "title": "Advanced HTTP and Express.js",
+                        "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=1kLeM1M4H_Op0IKBI7e9fc-1sbUWo-dpRzEWSBtduCrI&exportFormat=html",
+                        "projectId": "6444016b510ac7ec179347a7",
+                        "projectDescription": "Build a real-time chat application that uses WebSockets and Passport.js for authentication."
+                    },
+                    {
+                        "title": "Relational Databases and Sequelize.js",
+                        "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=1ItvjSaR86ehpg8ijbSW2GeHQASob9FuoM-ExsXYJ-HU&exportFormat=html",
+                        "projectId": "6444016b510ac7ec179347a8",
+                        "projectDescription": "Build a RESTful API that uses Sequelize.js to interact with a MySQL or PostgreSQL database"
+                    },
+                    {
+                        "title": "Security and Performance",
+                        "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=1p6Zh-PiUP1Vb_n8rJ_fySQjDbR6j05KPQfYDz_tVwYA&exportFormat=html",
+                        "projectId": "6444016c510ac7ec179347a9",
+                        "projectDescription": "Implement security measures and performance optimizations for the RESTful API developed in the previous milestone"
+                    }
+                ],
+                "intermediate": [],
+                "advanced": [
+                    {
+                        "title": "Advanced Concepts in Node.js",
+                        "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=1hiTY0G6JE8wA-Q3AuXIV1GCBZ8m2so2jPPQEZm8f1EI&exportFormat=html",
+                        "projectId": "644401d551b18af6f97e76b6",
+                        "projectDescription": "Build a Node.js application that uses streams, child processes, and clustering to handle large amounts of data efficiently and concurrently"
+                    },
+                    {
+                        "title": "Advanced Database Management",
+                        "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=1HGzuNsZCJRLeXGgzEwp9tTgcn3zhCMpVANLxzAbolY8&exportFormat=html",
+                        "projectId": "644401d651b18af6f97e76b7",
+                        "projectDescription": "Design and implement a data warehouse for a large retail chain.- integrate data from multiple sources- provide complex reporting and analysis capability.- Implement security measures and performance optimizations"
+                    },
+                    {
+                        "title": "Advanced Performance and Scalability",
+                        "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=10N-5MVf3mNvXVfhpFDMMxi104KxedzHI_koJlOTPNHk&exportFormat=html",
+                        "projectId": "644401d651b18af6f97e76b8",
+                        "projectDescription": "Build a scalable and performant microservices architecture with Node.js, Docker, Redis, and RabbitMQ. Implement CRUD operations for the service&#39;s data, and add support for data pagination, filtering, and sorting."
+                    },
+                    {
+                        "title": "Testing and Debugging",
+                        "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=1GjeFrKJGs592hSTS04yvmaSSiNZuwA_F5V-y-cNqy80&exportFormat=html",
+                        "projectId": "644401d751b18af6f97e76b9",
+                        "projectDescription": "Write automated tests for the RESTful API developed in the previous milestone using Mocha and Chai"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "careerPath": "product-design",
+        "levels": [
+            {
+                "junior": [
+                    {
+                        "title": "Introduction to Product Design",
+                        "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=12NkPRKW7nHKNuNnGOF7NDy23iFtu6SXV8feOflzs-rY&exportFormat=html",
+                        "projectId": "6444238dd3d67c6753e392e1",
+                        "projectDescription": "Sketch 10 different product ideas. It can be on either desktop or mobile."
+                    },
+                    {
+                        "title": "User Research and Understanding User Needs",
+                        "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=18SDR76yfcVOkMbOUekkwZXXULYmaQJp9uFpOzucBBMM&exportFormat=html",
+                        "projectId": "6444238ed3d67c6753e392e2",
+                        "projectDescription": "Conduct a user interview and create a user persona"
+                    },
+                    {
+                        "title": "Product Design Tools",
+                        "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=19-mMI6arDo9zB7R6mdccDeqo5v1UQifXY4gCJhz4N2c&exportFormat=html",
+                        "projectId": "6444238ed3d67c6753e392e3",
+                        "projectDescription": "Create a wireframe using a product design tool"
+                    },
+                    {
+                        "title": "Prototyping and Testing",
+                        "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=19JLnHKK1mlFqH7i9c9Gww5K-zzTnYQaRQDVUnPoYZq4&exportFormat=html",
+                        "projectId": "6444238fd3d67c6753e392e4",
+                        "projectDescription": "Create and test a prototype with users"
+                    },
+                    {
+                        "title": "Introduction to Hand-Off and Collaboration",
+                        "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=1LzYLouH-mv3dQsXSIFd-6IWX5-SX_ounDV5h4JmLGjA&exportFormat=html",
+                        "projectId": "6444238fd3d67c6753e392e5",
+                        "projectDescription": "Create a clear hand-off process document outlining the key steps and responsibilities involved in transferring design between different teams and stages."
+                    },
+                    {
+                        "title": "Design Principles and Elements",
+                        "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=1MZoeUS_Pr1pIFdTrTwztSYhlbp8VlDOSwvn9TTw0QkA&exportFormat=html",
+                        "projectId": "6444238fd3d67c6753e392e6",
+                        "projectDescription": "Create a design using the principles and elements learned"
+                    },
+                    {
+                        "title": "Designing for Different Platforms",
+                        "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=1r-jCaDenGQfwgp3NDhSyBKMSBa_to1OPX9R3hwSPbP8&exportFormat=html",
+                        "projectId": "64442390d3d67c6753e392e7",
+                        "projectDescription": "Design an online store for a specific platform (e.g. mobile app)"
+                    }
+                ],
+                "entrylevel": [
+                    {
+                        "title": "Collaborating with Developers",
+                        "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=1MxfOim7gueM_lFbx656qWBPy-b3ohnT4lhqVMeiTm84&exportFormat=html",
+                        "projectId": "6444239e011b80237f08b835",
+                        "projectDescription": "Collaborate with developers to ensure design decisions can be implemented within technical constraints.Conduct a retrospective to identify areas for improvement in the design and development process."
+                    },
+                    {
+                        "title": "Visual Design",
+                        "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=1PPe_bZzMYBdcdsTozWiW_5GDHqNyBP-bAHf10sqjMJ4&exportFormat=html",
+                        "projectId": "6444239f011b80237f08b836",
+                        "projectDescription": "Design a style guide that includes typography, color palette, and iconography for a new product or feature.Implement the design system in a project by creating components and style guides."
+                    },
+                    {
+                        "title": "Interaction Design",
+                        "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=1_RNDMQTKvFKhJIQhCJRJEuB3ro1vRPtK-JQJQ6weT3c&exportFormat=html",
+                        "projectId": "6444239f011b80237f08b837",
+                        "projectDescription": "Create low-fidelity wireframes to outline the layout and functionality of a feature or product."
+                    },
+                    {
+                        "title": "User-Centered Design",
+                        "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=1i4Y3AY2NAt_Y06pN-5b8K1yp0edv9XSQTgltCdwMuGY&exportFormat=html",
+                        "projectId": "644423a0011b80237f08b838",
+                        "projectDescription": "Conduct user interviews to understand their needs and pain points.Create user personas based on research findings."
+                    }
+                ],
+                "intermediate": [],
+                "advanced": [
+                    {
+                        "title": "User Research and Design",
+                        "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=17Is-UcYN6YVYy11G_xlAsElP8OCCySNuIZbFCBBJ4_I&exportFormat=html",
+                        "projectId": "644423bb4ee40951ecb919e5",
+                        "projectDescription": "Conduct user research and create user personas, user scenarios, and wireframes for a product design project"
+                    },
+                    {
+                        "title": "Visual Design and Interaction Design",
+                        "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=1SnzAqJHln_N03j97uRarde4us-BF7uoS2WcA-c-pq-g&exportFormat=html",
+                        "projectId": "644423bc4ee40951ecb919e6",
+                        "projectDescription": "Create a visual design project that incorporates responsive design and micro-interactions."
+                    },
+                    {
+                        "title": "Design Collaboration and Leadership",
+                        "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=1_RENBcXFzdpkB45lCUo2ueoC8My2xtkY_fUodUecS7w&exportFormat=html",
+                        "projectId": "644423bc4ee40951ecb919e7",
+                        "projectDescription": "Lead a design project and facilitate a design thinking workshop."
+                    },
+                    {
+                        "title": "Design Principles and Fundamentals",
+                        "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=1lgtdLi694as1V7uXS5AxrMc-cr9JLE5eSIt0pmIMb9I&exportFormat=html",
+                        "projectId": "644423bd4ee40951ecb919e8",
+                        "projectDescription": "Create a visual design project that applies the principles of design thinking, visual hierarchy, and grid systems."
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "careerPath": "frontend",
+        "levels": [
+            {
+                "junior": [
+                    {
+                        "title": "HYPERTEXT MARKUP LANGUAGE",
+                        "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=1Ijqi5sezOmODrxIvsl4tRjrjWU_NM1mR&exportFormat=html",
+                        "projectId": "64440231999248e6a4437968",
+                        "projectDescription": ":Build a simple personal website using HTML "
+                    },
+                    {
+                        "title": "CASCADING STYLE SHEETS (CSS)",
+                        "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=1FoYilD67dmWPs-luGPVnV0mD4miBAjBS&exportFormat=html",
+                        "projectId": "64440232999248e6a4437969",
+                        "projectDescription": "s:Build a simple webpage using HTML and CSSCreate a form using HTML and CSSBuild a responsive webpage using HTML and CSS"
+                    },
+                    {
+                        "title": "JAVASCRIPT",
+                        "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=1UrI0KSXn5Nktk854nmlBr9NZKkxWnJav&exportFormat=html",
+                        "projectId": "64440233999248e6a443796a",
+                        "projectDescription": "s:Add interactivity to a webpage using JavaScriptCreate a calculator using HTML, CSS, and JavaScript."
+                    }
+                ],
+                "entrylevel": [
+                    {
+                        "title": "Advanced CSS",
+                        "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=120liEbSvSSNEanduH3oFh-lnhi2qI1-y&exportFormat=html",
+                        "projectId": "64440255b62af910c6aa47e5",
+                        "projectDescription": "s:Build a webpage using a CSS frameworkImplement animations and transitions using CSSBuild a responsive webpage using CSS grid and/or flexbox"
+                    },
+                    {
+                        "title": "JAVASCRIPT FRAMEWORK",
+                        "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=1RIE2FamGpNKAcZSE2EG_s8pt3pNbVVRB&exportFormat=html",
+                        "projectId": "64440255b62af910c6aa47e6",
+                        "projectDescription": "s:Build a simple web application using a JavaScript framework"
+                    }
+                ],
+                "intermediate": [
+                    {
+                        "title": "BEGINNER FRONTEND DEVELOPMENT ****",
+                        "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=1-rHjsU4u09uBiky8Bed5pO-qWtqE5JeN&exportFormat=html",
+                        "projectId": "64440276295e98991f922ada",
+                        "projectDescription": " "
+                    },
+                    {
+                        "title": "PERFORMANCE OPTIMIZATION",
+                        "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=10XuBwxuLt0JDm1t-s_0ZC9AMzvNhfcsO&exportFormat=html",
+                        "projectId": "64440277295e98991f922adb",
+                        "projectDescription": "Build an accessible webpage or application that meets WCAG guidelines"
+                    },
+                    {
+                        "title": "MODERN WEB DEVELOPMENT TECHNIQUES",
+                        "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=1R_mCoMpTZpq-6oOjvunX1DC4xCNGkYxf&exportFormat=html",
+                        "projectId": "64440277295e98991f922adc",
+                        "projectDescription": "Build a modern web application using PWA, serverless architecture, and/or GraphQLDeploy a web application using CI/CD pipeline and serverless computing platform"
+                    }
+                ],
+                "advanced": [
+                    {
+                        "title": "ADVANCED JAVASCRIPT",
+                        "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=1qjQcQg9r4u5v3bgjx7emVyNR2lfdI9TC&exportFormat=html",
+                        "projectId": "644402bc17b663ff7213f94e",
+                        "projectDescription": "Write advanced JavaScript using techniques like Promises, Async/Await, Generators, and Iterators"
+                    },
+                    {
+                        "title": "TESTING AND DEBUGGING",
+                        "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=1e8X2-EDZhtkLaIBW_I0VHNlf1PmsaXAF&exportFormat=html",
+                        "projectId": "644402bc17b663ff7213f94f",
+                        "projectDescription": "Write comprehensive unit tests using Jest and end-to-end tests using CypressDebug complex web applications using Chrome DevTools"
+                    },
+                    {
+                        "title": "WEB ACCESSIBILITY",
+                        "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=17RzdD-xPhP2GUBi3YkoFQR3lax0SyrjW&exportFormat=html",
+                        "projectId": "644402bd17b663ff7213f950",
+                        "projectDescription": "Build and deploy an accessible web application that follows the latest WCAG guidelines and uses semantic HTML and ARIA attributes"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "careerpath": "blockchain",
+        "levels": [
+            {
+                "junior": [
+                    null,
+                    null,
+                    null,
+                    null
+                ]
+            }
+        ]
+    },
+    {
+        "careerpath": "technical-writing",
+        "levels": [
+            {
+                "junior": [
+                    null,
+                    null,
+                    null,
+                    null
+                ]
+            }
+        ]
+    },
+    {
+        "careerpath": "template-to-not-be-edited",
+        "levels": [
+            {
+                "junior": [
+                    null,
+                    null,
+                    null,
+                    null
+                ]
+            }
+        ]
+    }
+]
