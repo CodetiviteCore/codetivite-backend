@@ -6,11 +6,17 @@ const apiRoutes = require("./lib/routes");
 const {
   OK,
   NOT_FOUND,
+  INTERNAL_SERVER_ERROR,
 } = require("./lib/utils/status-codes");
 const { errorHandler } = require("./lib/handlers/error-handler");
+const { addProjectsToJson, createProject } = require("./lib/utils/extract-projects");
 
 const app = express();
-connectDatabase();
+try {
+  connectDatabase();
+} catch (error) {
+  res.status(INTERNAL_SERVER_ERROR).send({ message: "Error Connecting to Db" })
+}
 
 app.use(
   cors({
