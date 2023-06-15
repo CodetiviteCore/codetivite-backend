@@ -3,7 +3,8 @@
   "description": "Codetivite Backend API",
   "license": "UNLICENSED",
   "scripts": {
-    "dev": "nodemon ."
+    "dev": "nodemon .",
+    "test": "jest"
   },
   "dependencies": {
     "cookie-parser": "^1.4.6",
@@ -15,6 +16,7 @@
     "googleapis": "^116.0.0",
     "http": "^0.0.1-security",
     "http-errors": "^2.0.0",
+    "jest": "^29.5.0",
     "joi": "^17.7.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.6.0",
