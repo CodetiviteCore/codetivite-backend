@@ -4,3 +4,4 @@ node_modules
 .env.production.local
 .env.sample
 client_secret.json
+.env.test
