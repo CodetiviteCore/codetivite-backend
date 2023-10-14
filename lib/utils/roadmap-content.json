@@ -5,6 +5,38 @@
             {
                 "junior": [
                     {
+                        "title": "INTRODUCTION TO WEB DEVELOPMENT",
+                        "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=1Ijqi5sezOmODrxIvsl4tRjrjWU_NM1mR&exportFormat=html",
+                        "projectId": "652a623daeb0c7b0580a0873",
+                        "projectDescription": "Create a Github account\nFrom your github account create a repository\nWrite a short medium article where you explain in your own words, the relationship between web development and the internet\nWrite a simple readme using markdown. The readme should have information about you (full name, trac etc) and should have the link to your medium article\nPush the readme to your repository \nSubmit the link to your github repository"
+                    },
+                    {
+                        "title": "HYPERTEXT MARKUP LANGUAGE",
+                        "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=1Ijqi5sezOmODrxIvsl4tRjrjWU_NM1mR&exportFormat=html",
+                        "projectId": "648a20d5d859cc238b3d46ca",
+                        "projectDescription": "Now you are an HTML expert! You want the world to know about you. Build a simple personal website using only HTML. Anyone who visits this page should be able to see your image, name, bio, social media handles, a fun fact about you etc \n\nYou have a real estate company and you want to put your business online for potential clients to find you. Create a real estate application with only HTML. The application’s landing page should tell potential clients about your business and it should also have clickable images. When a client clicks on an image of a house, the client should be directed to another page that shows the client more information about the house they clicked on.\nBe creative with this!"
+                    },
+                    {
+                        "title": "CASCADING STYLE SHEETS (CSS)",
+                        "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=1FoYilD67dmWPs-luGPVnV0mD4miBAjBS&exportFormat=html",
+                        "projectId": "648a20d5d859cc238b3d46cb",
+                        "projectDescription": "As a CSS genius, you have been contacted by President Biden to solve the hunger problem in the world. You will do this by replicating a figma design for a food website.\nThe goal is to employ all the tips and tricks you have learned so far to create a fully responsive replica of the design. Goodluck!\n\nYou just realized that a lot of techies worldwide live their lives on coffee. You are thinking this is an awesome business idea. You like money a lot. Now you want to start a coffee business. Build a simple responsive coffee store webpage using HTML and CSS. This store should have a homepage and should include a menu created using HTML tables. Your coffee store should also have a contact page (with a form), an about page and anything else you would love to add.\nThe goal is to be as creative as you can be. Your potential competition in the coffee business: https://www.coffee-page.com/"
+                    },
+                    {
+                        "title": "JAVASCRIPT",
+                        "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=1UrI0KSXn5Nktk854nmlBr9NZKkxWnJav&exportFormat=html",
+                        "projectId": "648a20d6d859cc238b3d46cc",
+                        "projectDescription": "Using just javascript, build a basic calculator that takes input from the user and performs mathematical operations like addition, subtraction, multiplication, and division.\n\nUsing just javascript, create a console app quiz game where the user is presented with a series of multiple-choice questions. Store the questions, options, and correct answers in an object or an array. Display each question, prompt the user for their answer, and provide feedback on whether their answer was correct or not. At the end of the quiz, display the user's score and the correct answers for the questions they missed.\nBonus if you can set a time limit for each question and display a countdown timer, add a feature to allow the user to create their own custom quizzes by adding questions and answers or Include different categories of questions and allow the user to select a specific category before starting the quiz."
+                    },
+                    {
+                        "title": "JAVASCRIPT DOM",
+                        "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=1Ib3Egz8B9sOvqwaM8DA6P9LP_et3tOIvhID2qv5Xx7w&exportFormat=html",
+                        "projectId": "652a591f8ea5dfb1b444d5a0",
+                        "projectDescription": "Task One: Clone and fork the repo to see the task: https://github.com/codetivite/javascript-dom-project-1\nTask Two\nClone and fork the repo to see the task: https://github.com/codetivite/javascript-dom-project-2\nTask Three: Clone and fork the repo to see the task: https://github.com/codetivite/javascript-dom-project-3\nTask One: Clone and fork the repo to see the task: https://github.com/codetivite/javascript-dom-project-4"
+                    }
+                ],
+                "entrylevel": [
+                    {
                         "title": "NodeJs Basics",
                         "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=1zTazJBbPuOYBgL7DpuH3H6RL292_LPizVcC6z2Ozsjg&exportFormat=html",
                         "projectId": "648a1f54cd250bde35fa40f0",
@@ -29,7 +61,7 @@
                         "projectDescription": "Using Mocha and Chai, write tests for the the ecommerce RESTful API you developed in the previous section using Mocha and ChaiWrite an article on the difference between Mocha and Chai"
                     }
                 ],
-                "entrylevel": [
+                "intermediate": [
                     {
                         "title": "Security and Performance",
                         "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=1p6Zh-PiUP1Vb_n8rJ_fySQjDbR6j05KPQfYDz_tVwYA&exportFormat=html",
@@ -49,7 +81,6 @@
                         "projectDescription": "Build a RESTful API for a hotel management system using that uses Sequelize.js to interact with a PostgresSQL database.\nAcceptance Criteria\nYour API must be restful\nUse Sequelize.js + PostgresSQL\nProper implementation of authentication and authorization\nImplement data caching using redis\nA proper readme to explain what you have done"
                     }
                 ],
-                "intermediate": [],
                 "advanced": [
                     {
                         "title": "Advanced Concepts in Node.js",
@@ -82,7 +113,7 @@
                         "title": "Introduction to Product Design",
                         "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=12NkPRKW7nHKNuNnGOF7NDy23iFtu6SXV8feOflzs-rY&exportFormat=html",
                         "projectId": "648a2536cf3ae136a8ad163a",
-                        "projectDescription": "Sketch 10 different product ideas. It can be on either desktop or mobile. Snap them and attach the images to a goodle doc file. Then share the link to the google doc file. Do not forget to add comprehensive description for each image"
+                        "projectDescription": "Sketch 10 different product ideas. It can be on either desktop or mobile. Snap them and attach the images to a google doc file. Then share the link to the google doc file. Do not forget to add comprehensive description for each image"
                     },
                     {
                         "title": "User Research and Understanding User Needs",
@@ -183,22 +214,34 @@
             {
                 "junior": [
                     {
+                        "title": "INTRODUCTION TO WEB DEVELOPMENT",
+                        "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=1Ijqi5sezOmODrxIvsl4tRjrjWU_NM1mR&exportFormat=html",
+                        "projectId": "652a623daeb0c7b0580a0873",
+                        "projectDescription": "Create a Github account\nFrom your github account create a repository\nWrite a short medium article where you explain in your own words, the relationship between web development and the internet\nWrite a simple readme using markdown. The readme should have information about you (full name, trac etc) and should have the link to your medium article\nPush the readme to your repository \nSubmit the link to your github repository"
+                    },
+                    {
                         "title": "HYPERTEXT MARKUP LANGUAGE",
                         "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=1Ijqi5sezOmODrxIvsl4tRjrjWU_NM1mR&exportFormat=html",
                         "projectId": "648a20d5d859cc238b3d46ca",
-                        "projectDescription": "Build a simple personal website using HTML. Anyone who visits this page should be able to see your image, name, bio, and a fun fact about you. "
+                        "projectDescription": "Now you are an HTML expert! You want the world to know about you. Build a simple personal website using only HTML. Anyone who visits this page should be able to see your image, name, bio, social media handles, a fun fact about you etc \n\nYou have a real estate company and you want to put your business online for potential clients to find you. Create a real estate application with only HTML. The application’s landing page should tell potential clients about your business and it should also have clickable images. When a client clicks on an image of a house, the client should be directed to another page that shows the client more information about the house they clicked on.\nBe creative with this!"
                     },
                     {
                         "title": "CASCADING STYLE SHEETS (CSS)",
                         "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=1FoYilD67dmWPs-luGPVnV0mD4miBAjBS&exportFormat=html",
                         "projectId": "648a20d5d859cc238b3d46cb",
-                        "projectDescription": "Build a simple responsive coffee store webpage using HTML and CSS. This store should have a homepage should include a menu created using HTML tables. Your coffee store should also have a contact page (with a form), an about page and anything else you would love to add."
+                        "projectDescription": "As a CSS genius, you have been contacted by President Biden to solve the hunger problem in the world. You will do this by replicating a figma design for a food website.\nThe goal is to employ all the tips and tricks you have learned so far to create a fully responsive replica of the design. Goodluck!\n\nYou just realized that a lot of techies worldwide live their lives on coffee. You are thinking this is an awesome business idea. You like money a lot. Now you want to start a coffee business. Build a simple responsive coffee store webpage using HTML and CSS. This store should have a homepage and should include a menu created using HTML tables. Your coffee store should also have a contact page (with a form), an about page and anything else you would love to add.\nThe goal is to be as creative as you can be. Your potential competition in the coffee business: https://www.coffee-page.com/"
                     },
                     {
                         "title": "JAVASCRIPT",
                         "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=1UrI0KSXn5Nktk854nmlBr9NZKkxWnJav&exportFormat=html",
                         "projectId": "648a20d6d859cc238b3d46cc",
-                        "projectDescription": "Build a basic calculator that takes input from the user and performs mathematical operations like addition, subtraction, multiplication, and division. \n\nCreate a quiz game where the user is presented with a series of multiple- choice questions.Store the questions, options, and correct answers in an object or an array. Display each question, prompt the user for their answer, and provide feedback on whether their answer was correct or not.At the end of the quiz, display the user's score and the correct answers for the questions they missed. \nBonus if you can set a time limit for each question and display a countdown timer, add a feature to allow the user to create their own custom quizzes by adding questions and answers or Include different categories of questions and allow the user to select a specific category before starting the quiz"
+                        "projectDescription": "Using just javascript, build a basic calculator that takes input from the user and performs mathematical operations like addition, subtraction, multiplication, and division.\n\nUsing just javascript, create a console app quiz game where the user is presented with a series of multiple-choice questions. Store the questions, options, and correct answers in an object or an array. Display each question, prompt the user for their answer, and provide feedback on whether their answer was correct or not. At the end of the quiz, display the user's score and the correct answers for the questions they missed.\nBonus if you can set a time limit for each question and display a countdown timer, add a feature to allow the user to create their own custom quizzes by adding questions and answers or Include different categories of questions and allow the user to select a specific category before starting the quiz."
+                    },
+                    {
+                        "title": "JAVASCRIPT DOM",
+                        "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=1Ib3Egz8B9sOvqwaM8DA6P9LP_et3tOIvhID2qv5Xx7w&exportFormat=html",
+                        "projectId": "652a591f8ea5dfb1b444d5a0",
+                        "projectDescription": "Task One: Clone and fork the repo to see the task: https://github.com/codetivite/javascript-dom-project-1\nTask Two\nClone and fork the repo to see the task: https://github.com/codetivite/javascript-dom-project-2\nTask Three: Clone and fork the repo to see the task: https://github.com/codetivite/javascript-dom-project-3\nTask One: Clone and fork the repo to see the task: https://github.com/codetivite/javascript-dom-project-4"
                     }
                 ],
                 "entrylevel": [
@@ -248,6 +291,54 @@
                     }
                 ],
                 "advanced": []
+            }
+        ]
+    },
+    {
+        "careerPath": "technical-writing",
+        "levels": [
+            {
+                "junior": [
+                    {
+                        "title": "INTRODUCTION TO WEB DEVELOPMENT",
+                        "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=1Ijqi5sezOmODrxIvsl4tRjrjWU_NM1mR&exportFormat=html",
+                        "projectId": "652a623daeb0c7b0580a0873",
+                        "projectDescription": "Create a Github account\nFrom your github account create a repository\nWrite a short medium article where you explain in your own words, the relationship between web development and the internet\nWrite a simple readme using markdown. The readme should have information about you (full name, trac etc) and should have the link to your medium article\nPush the readme to your repository \nSubmit the link to your github repository"
+                    },
+                    {
+                        "title": "HYPERTEXT MARKUP LANGUAGE",
+                        "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=1Ijqi5sezOmODrxIvsl4tRjrjWU_NM1mR&exportFormat=html",
+                        "projectId": "648a20d5d859cc238b3d46ca",
+                        "projectDescription": "Now you are an HTML expert! You want the world to know about you. Build a simple personal website using only HTML. Anyone who visits this page should be able to see your image, name, bio, social media handles, a fun fact about you etc \n\nYou have a real estate company and you want to put your business online for potential clients to find you. Create a real estate application with only HTML. The application’s landing page should tell potential clients about your business and it should also have clickable images. When a client clicks on an image of a house, the client should be directed to another page that shows the client more information about the house they clicked on.\nBe creative with this!"
+                    },
+                    {
+                        "title": "CASCADING STYLE SHEETS (CSS)",
+                        "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=1FoYilD67dmWPs-luGPVnV0mD4miBAjBS&exportFormat=html",
+                        "projectId": "648a20d5d859cc238b3d46cb",
+                        "projectDescription": "As a CSS genius, you have been contacted by President Biden to solve the hunger problem in the world. You will do this by replicating a figma design for a food website.\nThe goal is to employ all the tips and tricks you have learned so far to create a fully responsive replica of the design. Goodluck!\n\nYou just realized that a lot of techies worldwide live their lives on coffee. You are thinking this is an awesome business idea. You like money a lot. Now you want to start a coffee business. Build a simple responsive coffee store webpage using HTML and CSS. This store should have a homepage and should include a menu created using HTML tables. Your coffee store should also have a contact page (with a form), an about page and anything else you would love to add.\nThe goal is to be as creative as you can be. Your potential competition in the coffee business: https://www.coffee-page.com/"
+                    },
+                    {
+                        "title": "JAVASCRIPT",
+                        "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=1UrI0KSXn5Nktk854nmlBr9NZKkxWnJav&exportFormat=html",
+                        "projectId": "648a20d6d859cc238b3d46cc",
+                        "projectDescription": "Using just javascript, build a basic calculator that takes input from the user and performs mathematical operations like addition, subtraction, multiplication, and division.\n\nUsing just javascript, create a console app quiz game where the user is presented with a series of multiple-choice questions. Store the questions, options, and correct answers in an object or an array. Display each question, prompt the user for their answer, and provide feedback on whether their answer was correct or not. At the end of the quiz, display the user's score and the correct answers for the questions they missed.\nBonus if you can set a time limit for each question and display a countdown timer, add a feature to allow the user to create their own custom quizzes by adding questions and answers or Include different categories of questions and allow the user to select a specific category before starting the quiz."
+                    },
+                    {
+                        "title": "JAVASCRIPT DOM",
+                        "resourceUrl": "https://docs.google.com/feeds/download/documents/export/Export?id=1Ib3Egz8B9sOvqwaM8DA6P9LP_et3tOIvhID2qv5Xx7w&exportFormat=html",
+                        "projectId": "652a591f8ea5dfb1b444d5a0",
+                        "projectDescription": "Task One: Clone and fork the repo to see the task: https://github.com/codetivite/javascript-dom-project-1\nTask Two\nClone and fork the repo to see the task: https://github.com/codetivite/javascript-dom-project-2\nTask Three: Clone and fork the repo to see the task: https://github.com/codetivite/javascript-dom-project-3\nTask One: Clone and fork the repo to see the task: https://github.com/codetivite/javascript-dom-project-4"
+                    }
+                ],
+                "entrylevel": [
+                    
+                ],
+                "intermediate": [
+                    
+                ],
+                "advanced": [
+                   
+                ]
             }
         ]
     }
