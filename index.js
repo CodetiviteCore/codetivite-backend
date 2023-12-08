@@ -10,6 +10,7 @@ const {
 } = require("./lib/utils/status-codes");
 const { errorHandler } = require("./lib/handlers/error-handler");
 const { addProjectsToJson, createProject } = require("./lib/utils/extract-projects");
+const cron = require('./lib/utils/healthCheck-utils');
 
 const app = express();
 try {
@@ -34,6 +35,8 @@ app.all("*", (_, res) =>
 );
 
 app.use(errorHandler)
+
+cron.start();
 
 app.listen(PORT, () => {
   console.log(
