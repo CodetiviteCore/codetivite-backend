@@ -10,6 +10,7 @@ const {
 } = require("./lib/utils/status-codes");
 const { errorHandler } = require("./lib/handlers/error-handler");
 const { addProjectsToJson, createProject } = require("./lib/utils/extract-projects");
+const cron = require('./lib/utils/cronjob-utils');
 
 const app = express();
 try {
@@ -32,6 +33,8 @@ app.use("/api", apiRoutes);
 app.all("*", (_, res) =>
   res.status(NOT_FOUND).send({ message: "route not found" })
 );
+
+cron.start();
 
 app.use(errorHandler)
 
