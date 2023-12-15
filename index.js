@@ -34,9 +34,9 @@ app.all("*", (_, res) =>
   res.status(NOT_FOUND).send({ message: "route not found" })
 );
 
-app.use(errorHandler)
-
 cron.start();
+
+app.use(errorHandler)
 
 app.listen(PORT, () => {
   console.log(
